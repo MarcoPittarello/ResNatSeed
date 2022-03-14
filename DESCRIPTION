@@ -1,0 +1,32 @@
+Package: ResNatSeed
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: c(
+     person(given = "Marco",
+           family = "Pittarello",
+           role = c("aut", "cre"),
+           email = "marco.pittarello1987@gmail.com",
+           comment = c(ORCID = "0000-0001-6748-8790")),
+     person(given = "Davide",
+           family = "Barberis",
+           role = "aut",
+           email = "davide.barberis@unito.it",
+           comment = c(ORCID = "?????")),
+     person(given = "Michele",
+           family = "Lonati",
+           role = "aut",
+           comment = c(ORCID = "?????")),
+    person(given = "Giampiero",
+           family = "Lombardi",
+           role = "aut",
+           comment = c(ORCID = "?????"))
+           )
+Description: What the package does (one paragraph).
+Imports: vegan tidyverse performance mgcv
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
