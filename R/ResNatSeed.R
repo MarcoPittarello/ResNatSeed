@@ -9,4 +9,5 @@
 #' @param aspect
 #' @return 
 #' @references 
+#' @import vegan tidyverse mgcv performance
 #' @export

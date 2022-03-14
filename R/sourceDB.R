@@ -7,6 +7,7 @@
 #' @param spe.freq
 #' @return 
 #' @references 
+#' @import vegan tidyverse
 #' @export
 
 

@@ -1,5 +1,6 @@
 Package: ResNatSeed
 Title: What the Package Does (One Line, Title Case)
+Data: 
 Version: 0.0.0.9000
 Authors@R: c(
      person(given = "Marco",
@@ -22,7 +23,7 @@ Authors@R: c(
            comment = c(ORCID = "?????"))
            )
 Description: What the package does (one paragraph).
-Imports: vegan tidyverse performance mgcv
+Imports: vegan,tidyverse,performance,mgcv
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
