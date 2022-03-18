@@ -16,7 +16,7 @@ trainingDB(data, spe.freq, min.spe.abundance = NULL)
 \value{
 a list containing two dataframes:\cr
 \itemize{
-\item 1- \strong{"cep.names"}: a two-column dataframe reporting the full species names and their abbreviations the CEP format (see \code{link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in mixture botanical composition.
+\item 1- \strong{"cep.names"}: a two-column dataframe reporting the full species names and their abbreviations the CEP format (see \code{\link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in mixture botanical composition.
 \item 2- \strong{"sourceDB.ResNatSeed"}: a seven-column dataframe reporting the following information: Survey ID, elevation, slope, southness, species full names, species CEP names, and species abundance. This dataframe must be used in the “sourceDB” argument of the \code{\link[ResNatSeed]{ResNatSeed}} function.
 }
 }
