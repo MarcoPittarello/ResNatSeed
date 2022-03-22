@@ -33,9 +33,9 @@ The format of the dataframe required in the "data" argument must looks as follow
 SurveyID   Elevation   Slope   Aspect   Species1   Species2   Species3   Species…\cr
 \itemize{
 \item \strong{SurveyID} should contain an alphanumeric coding
-\item \strong{Elevation} can be expressed in meters or other similar unit of measurement
-\item \strong{Slope} is recommended to be expressed in degrees (°)
-\item \strong{Aspect} must be expressed in degrees from North (°N) as it will be converted to "southness" to avoid circular variable issues in the models run with \code{\link{ResNatSeed}} (Chang et al., 2004)
+\item \strong{Elevation} expressed in meters above sea level (m a.s.l.)
+\item \strong{Slope} expressed in degrees (°)
+\item \strong{Aspect} expressed in degrees from North (°N) as it will be converted to "southness" to avoid circular variable issues in the models run with \code{\link{ResNatSeed}} (Chang et al., 2004)
 \item \strong{Species} columns contains plant species abundance, either expressed as percentage, Species Relative Cover (SRA), Species Percentage Cover (\%SC)(see more details regarding the last two terminologies in \code{\link[iPastoralist]{vegetation_abundance}} or \href{ https://raw.githubusercontent.com/MarcoPittarello/iPastoralist/main/image/Wrkflw_abundance_conversion.png }{here} \cr
 }
 }

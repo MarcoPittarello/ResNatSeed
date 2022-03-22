@@ -1,15 +1,51 @@
 #' ResNatSeed
 #'
-#' @description
+#' @description ...
 #'
-#' @param sourceDB default is NULL. When NULL ....
-#' @param spe.mixture
-#' @param elevation
-#' @param slope
-#' @param aspect
-#' @return 
-#' @references 
-#' @import vegan tidyverse mgcv performance
+#' @param trainingDB default is NULL. When NULL the training dataset is derived from 4081 vegetation surveys 
+#' carried out in Piedmont Region, Italy. A customized training dataset can be generated with \code{\link[ResNatSeed]{trainingDB}}
+#' and then provided to "trainingDB" argument.
+#' @param composition dataframe with the mixture/donor grassland composition. The dataframe 
+#' consists of two columns: 1) species code abbreviated in CEP names format and 2) abundance 
+#' of the species. When "trainingDB" is NULL, i species CEP names are retrievable from 
+#' \code{\link[ResNatSeed]{cep.piem}} data. When "trainingDB" is not NULL, i.e. the user does not use
+#' default settings, the training dataset to be indicated in the "trainingDB" argument must be firstly 
+#' generated through \code{\link[ResNatSeed]{trainingDB}}. In this case, species CEP names that may 
+#' be indicated in the mixture/donor grassland composition, in the "composition" argument, are retrievable from \code{\link[ResNatSeed]{trainingDB}} 
+#' as well. 
+#' @param elevation Elevation of restoration site, expressed in meters above sea level (m a.s.l.)
+#' @param slope Slope of restoration site, expressed in degrees (°)
+#' @param aspect Aspect of restoration site, expressed in degrees from North (°N)
+#' @return A list with three outputs:
+#' - **DESCRIPTIVES** Dataframe with the descriptive information related to species used in the mixture/donor grassland composition:
+#' \describe{
+#' \item{*cep.names*}{Species name in CEP format}
+#' \item{*species*}{Full species name}
+#' \item{*cases.number*}{Number of cases related to each species}
+#' \item{*min.ele*}{Minimum elevation at which a species has been detected in the training dataset}
+#' \item{*max.ele*}{Maximum elevation at which a species has been detected in the training dataset}
+#' \item{*min.slope*}{Minimum slope at which a species has been detected in the training dataset}
+#' \item{*max.slope*}{Maximum slope at which a species has been detected in the training dataset}
+#' \item{*min.south*}{Minimum southness value at which a species has been detected in the training dataset}
+#' \item{*max.south*}{Maximum southness value at which a species has been detected in the training dataset}  
+#' }
+#' - **SURVEYED AND PREDICTED ABUNDANCE** Dataframe with the following information:
+#' \describe{
+#' \item{*cep.names*}{Species name in CEP format}
+#' \item{*species*}{Full species name}
+#' \item{*predicted.Abundance*}{Abundance of each species predicted by the best Generalized Additive Model (GAM) based on elevation, slope, and aspect of restoration site provided by the user}
+#' \item{*predicted.AbundanceMax*}{Maximum abundance achievable by a species under the best possible ecological conditions, identified by all possible combinations of altitude, slope and southness. This maximum abundance is predicted by the best GAM and the limits of the three topographic variables are indicated in the output of the descriptives }
+#' \item{*ratio*}{Ratio between the predicted abundance and the maximum abundance achievable. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
+#' \item{*R2.adj*}{R square adjusted of the best GAM}
+#' \item{*RMSE*}{Root Mean Square Error of the best GAM}
+#' \item{*Mixture.abundance*}{Abundance of a species indicated in the mixture/donor grassland composition}
+#' \item{*Expected.abundance*}{Expected abundance (the most achievable) of a species in a restoration site with the topographical features provided by the user}  
+#' }
+#' - **INDEXES** \describe{
+#' \item{*Mixture.Suitability.index*}{A index bounded between 0 (bad) and 1 (optimal). This index ...}
+#' \item{*Mixture.Relaiability.index*}{A index bounded between 0 (bad) and 1 (optimal). This index ...} 
+#' }
+#' @import vegan tidyverse mgcv performance dplyr
 #' @export
 #' 
 #' 

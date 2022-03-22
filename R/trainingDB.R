@@ -16,9 +16,9 @@
 #' SurveyID   Elevation   Slope   Aspect   Species1   Species2   Species3   Species…\cr
 #'
 #'- **SurveyID** should contain an alphanumeric coding
-#'- **Elevation** can be expressed in meters or other similar unit of measurement
-#'- **Slope** is recommended to be expressed in degrees (°)
-#'- **Aspect** must be expressed in degrees from North (°N) as it will be converted to "southness" to avoid circular variable issues in the models run with \code{\link{ResNatSeed}} (Chang et al., 2004)
+#'- **Elevation** expressed in meters above sea level (m a.s.l.)
+#'- **Slope** expressed in degrees (°)
+#'- **Aspect** expressed in degrees from North (°N) as it will be converted to "southness" to avoid circular variable issues in the models run with \code{\link{ResNatSeed}} (Chang et al., 2004)
 #'- **Species** columns contains plant species abundance, either expressed as percentage, Species Relative Cover (SRA), Species Percentage Cover (%SC)(see more details regarding the last two terminologies in \code{\link[iPastoralist]{vegetation_abundance}} or \href{ https://raw.githubusercontent.com/MarcoPittarello/iPastoralist/main/image/Wrkflw_abundance_conversion.png }{here} \cr
 #' 
 #' @references * Chang, C., P. Lee, M. Bai, and T. Lin. 2004. Predicting the geographical distribution of plant communities in complex terrain–a case study in Fushian Experimental Forest, north- eastern Taiwan. Ecography. 27:577–588. doi:10.1111/j.0906- 7590.2004.03852.x
