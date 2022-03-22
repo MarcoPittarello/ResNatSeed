@@ -2,6 +2,7 @@
 
 export(ResNatSeed)
 export(trainingDB)
+import(dplyr)
 import(mgcv)
 import(performance)
 import(tidyverse)
