@@ -1,17 +1,17 @@
-#' Custom ResNatSeed source database and list of plant species that can be indicated in the mixture botanical composition
+#' Custom ResNatSeed training database and list of plant species that can be indicated in the mixture/donor grassland composition 
 #'
-#' @description This function is to be used in case you do not want to use the source database set by default in the function \code{\link[ResNatSeed]{ResNatSeed}}, which includes vegetation surveys carried out in the Region Piedmont, Italy. \cr
-#’Starting from a database containing topographic variables (elevation, slope and aspect) and plant species abundances, the function allows to generate:
-#' - 1 - the list of plant species that can be indicated in the mixture botanical composition with associated their species codes in CEP names format (see \code{\link[vegan]{make.cepnames}} for more details) 
-#' - 2 - a source database in the format requested as input in the \code{\link[ResNatSeed]{ResNatSeed}} function. 
+#' @description This function is to be used in case the user does not want to use the training database set by default in the function \code{\link[ResNatSeed]{ResNatSeed}}, which includes vegetation surveys carried out in the Region Piedmont, Italy. \cr
+#' Starting from a database containing topographic variables (elevation, slope and aspect) and plant species abundances, the function allows to generate:
+#' - 1. the list of plant species that can be indicated in the mixture/donor grassland composition with associated their species codes in CEP names format (see \code{\link[vegan]{make.cepnames}} for more details) 
+#' - 2. a training database in the format requested as input in the \code{\link[ResNatSeed]{ResNatSeed}} function. 
 #'
 #' @param data a dataframe where rows are surveys and columns are species. Such a dataframe must have the columns in the following order: Survey ID, Elevation, Slope, Aspect, and then columns with plant species abundance. See @details for additional and more specific information.
 #' @param min.spe.abundance value of abundance beyond which species will be modelled. When NULL the parameter is set to 0.
-#' @param spe.freq minimum number of times a species must appear in order to be modelled. It is advisable to set values greater than/equal to 30 to allow appropriate modelling.  
+#' @param spe.freq minimum frequency of species occurrence within the training database. It is advisable to set values greater than/equal to 30 to allow appropriate modelling.  
 #' @return a list containing two dataframes:\cr
-#' - 1- **"cep.names"**: a two-column dataframe reporting the full species names and their abbreviations the CEP format (see \code{\link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in mixture botanical composition. 
-#' - 2- **"sourceDB.ResNatSeed"**: a seven-column dataframe reporting the following information: Survey ID, elevation, slope, southness, species full names, species CEP names, and species abundance. This dataframe must be used in the “sourceDB” argument of the \code{\link[ResNatSeed]{ResNatSeed}} function. 
-#' @details The format of the dataframe required in the "data" argument must looks as follow (the headings do not necessarily have to be the same as those indicated, but it is essential to maintain that order):\cr
+#' - 1. **"cep.names"**: a two-column dataframe reporting the full species names and their abbreviations the CEP format (see \code{\link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in the mixture/donor grassland composition (i.e. in the "composition" argument of \code{\link[ResNatSeed]{ResNatSeed}}).
+#' - 2. **"trainingDB.ResNatSeed"**: a seven-column dataframe reporting the following information: Survey ID, elevation, slope, southness, species full names, species CEP names, and species abundance. This dataframe must be used in the "trainingDB" argument of \code{\link[ResNatSeed]{ResNatSeed}}. 
+#' @details The format of the dataframe required in the "data" argument must looks as follow (the heading names do not necessarily have to be the same as those indicated, but it is essential to maintain that order):\cr
 #' 
 #' SurveyID   Elevation   Slope   Aspect   Species1   Species2   Species3   Species…\cr
 #'
@@ -22,6 +22,7 @@
 #'- **Species** columns contains plant species abundance, either expressed as percentage, Species Relative Cover (SRA), Species Percentage Cover (%SC)(see more details regarding the last two terminologies in \code{\link[iPastoralist]{vegetation_abundance}} or \href{ https://raw.githubusercontent.com/MarcoPittarello/iPastoralist/main/image/Wrkflw_abundance_conversion.png }{here} \cr
 #' 
 #' @references * Chang, C., P. Lee, M. Bai, and T. Lin. 2004. Predicting the geographical distribution of plant communities in complex terrain–a case study in Fushian Experimental Forest, north- eastern Taiwan. Ecography. 27:577–588. doi:10.1111/j.0906- 7590.2004.03852.x
+#' * Marco Pittarello (2022). iPastoralist: Management, conversion, and analyses of vegetation data derived from phytosociological and point-quadrat method surveys. R package version 0.0.0.9000. https://github.com/MarcoPittarello/iPastoralist.git
 #' @import vegan tidyverse
 #' @export
 

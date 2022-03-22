@@ -2,7 +2,8 @@
 % Please edit documentation in R/ResNatSeed.R
 \name{ResNatSeed}
 \alias{ResNatSeed}
-\title{ResNatSeed}
+\title{Computation of Mixture Suitability Index (MSI) and Mixture Relaiability Index (MRI) for a mixture/donor grassland composition
+in a restoration site}
 \usage{
 ResNatSeed(trainingDB = NULL, composition, elevation, slope, aspect)
 }
@@ -13,12 +14,11 @@ and then provided to "trainingDB" argument.}
 
 \item{composition}{dataframe with the mixture/donor grassland composition. The dataframe
 consists of two columns: 1) species code abbreviated in CEP names format and 2) abundance
-of the species. When "trainingDB" is NULL, i species CEP names are retrievable from
+of the species. When "trainingDB" is NULL, the species CEP names are retrievable from
 \code{\link[ResNatSeed]{cep.piem}} data. When "trainingDB" is not NULL, i.e. the user does not use
 default settings, the training dataset to be indicated in the "trainingDB" argument must be firstly
 generated through \code{\link[ResNatSeed]{trainingDB}}. In this case, species CEP names that may
-be indicated in the mixture/donor grassland composition, in the "composition" argument, are retrievable from \code{\link[ResNatSeed]{trainingDB}}
-as well.}
+be indicated in the mixture/donor grassland composition in the "composition" argument are retrievable from \code{\link[ResNatSeed]{trainingDB}}}
 
 \item{elevation}{Elevation of restoration site, expressed in meters above sea level (m a.s.l.)}
 
@@ -29,7 +29,7 @@ as well.}
 \value{
 A list with three outputs:
 \itemize{
-\item \strong{DESCRIPTIVES} Dataframe with the descriptive information related to species used in the mixture/donor grassland composition:
+\item \strong{DESCRIPTIVES}: dataframe with the descriptive information related to species used in the mixture/donor grassland composition:
 \describe{
 \item{\emph{cep.names}}{Species name in CEP format}
 \item{\emph{species}}{Full species name}
@@ -41,7 +41,7 @@ A list with three outputs:
 \item{\emph{min.south}}{Minimum southness value at which a species has been detected in the training dataset}
 \item{\emph{max.south}}{Maximum southness value at which a species has been detected in the training dataset}
 }
-\item \strong{SURVEYED AND PREDICTED ABUNDANCE} Dataframe with the following information:
+\item \strong{SURVEYED AND PREDICTED ABUNDANCE}: dataframe with the following information:
 \describe{
 \item{\emph{cep.names}}{Species name in CEP format}
 \item{\emph{species}}{Full species name}
@@ -53,12 +53,13 @@ A list with three outputs:
 \item{\emph{Mixture.abundance}}{Abundance of a species indicated in the mixture/donor grassland composition}
 \item{\emph{Expected.abundance}}{Expected abundance (the most achievable) of a species in a restoration site with the topographical features provided by the user}
 }
-\item \strong{INDEXES} \describe{
-\item{\emph{Mixture.Suitability.index}}{A index bounded between 0 (bad) and 1 (optimal). This index ...}
-\item{\emph{Mixture.Relaiability.index}}{A index bounded between 0 (bad) and 1 (optimal). This index ...}
+\item \strong{INDEXES}: \describe{
+\item{\emph{MSI}}{Mixture Suitability Index (MSI). The MSI ranges from 0 (bad) to 1 (optimal). This index ...}
+\item{\emph{MRI}}{Mixture Relaiability Index (MRI). The MRI ranges from 0 (bad) to 1 (optimal). This index ...}
 }
 }
 }
 \description{
-...
+The function allows to compute the Mixture Suitability Index (MSI) and Mixture Relaiability Index (MRI) for a mixture/donor grassland composition
+in a restoration site based on topographic features, i.e. elevation, slope and aspect.
 }

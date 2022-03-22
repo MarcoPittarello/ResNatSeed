@@ -1,6 +1,5 @@
 Package: ResNatSeed
-Title: blslllsldlasdasdasdasdas
-Data: 
+Title: A tool for the assessment of the REStoration potential of NATive SEEDs based on topographic factors
 Version: 0.0.0.9000
 Authors@R: c(
      person(given = "Marco",
@@ -23,7 +22,8 @@ Authors@R: c(
            comment = c(ORCID = "?????"))
            )
 Description: What the package does (one paragraph).
-Imports: vegan,tidyverse,performance,mgcv
+URL: https://github.com/MarcoPittarello/ResNatSeed
+Imports: vegan,tidyverse,performance,mgcv,dplyr
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -4,9 +4,16 @@
 \name{ResNatSeed-package}
 \alias{ResNatSeed}
 \alias{ResNatSeed-package}
-\title{ResNatSeed: blslllsldlasdasdasdasdas}
+\title{ResNatSeed: A tool for the assessment of the REStoration potential of NATive SEEDs based on topographic factors}
 \description{
 What the package does (one paragraph).
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/MarcoPittarello/ResNatSeed}
+}
+
 }
 \author{
 \strong{Maintainer}: Marco Pittarello \email{marco.pittarello1987@gmail.com} (\href{https://orcid.org/0000-0001-6748-8790}{ORCID})

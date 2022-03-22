@@ -1,23 +1,24 @@
-#' ResNatSeed
+#' Computation of Mixture Suitability Index (MSI) and Mixture Relaiability Index (MRI) for a mixture/donor grassland composition 
+#' in a restoration site
 #'
-#' @description ...
+#' @description The function allows to compute the Mixture Suitability Index (MSI) and Mixture Relaiability Index (MRI) for a mixture/donor grassland composition 
+#' in a restoration site based on topographic features, i.e. elevation, slope and aspect.
 #'
 #' @param trainingDB default is NULL. When NULL the training dataset is derived from 4081 vegetation surveys 
 #' carried out in Piedmont Region, Italy. A customized training dataset can be generated with \code{\link[ResNatSeed]{trainingDB}}
 #' and then provided to "trainingDB" argument.
 #' @param composition dataframe with the mixture/donor grassland composition. The dataframe 
 #' consists of two columns: 1) species code abbreviated in CEP names format and 2) abundance 
-#' of the species. When "trainingDB" is NULL, i species CEP names are retrievable from 
+#' of the species. When "trainingDB" is NULL, the species CEP names are retrievable from 
 #' \code{\link[ResNatSeed]{cep.piem}} data. When "trainingDB" is not NULL, i.e. the user does not use
 #' default settings, the training dataset to be indicated in the "trainingDB" argument must be firstly 
 #' generated through \code{\link[ResNatSeed]{trainingDB}}. In this case, species CEP names that may 
-#' be indicated in the mixture/donor grassland composition, in the "composition" argument, are retrievable from \code{\link[ResNatSeed]{trainingDB}} 
-#' as well. 
+#' be indicated in the mixture/donor grassland composition in the "composition" argument are retrievable from \code{\link[ResNatSeed]{trainingDB}} 
 #' @param elevation Elevation of restoration site, expressed in meters above sea level (m a.s.l.)
 #' @param slope Slope of restoration site, expressed in degrees (°)
 #' @param aspect Aspect of restoration site, expressed in degrees from North (°N)
 #' @return A list with three outputs:
-#' - **DESCRIPTIVES** Dataframe with the descriptive information related to species used in the mixture/donor grassland composition:
+#' - **DESCRIPTIVES**: dataframe with the descriptive information related to species used in the mixture/donor grassland composition:
 #' \describe{
 #' \item{*cep.names*}{Species name in CEP format}
 #' \item{*species*}{Full species name}
@@ -29,7 +30,7 @@
 #' \item{*min.south*}{Minimum southness value at which a species has been detected in the training dataset}
 #' \item{*max.south*}{Maximum southness value at which a species has been detected in the training dataset}  
 #' }
-#' - **SURVEYED AND PREDICTED ABUNDANCE** Dataframe with the following information:
+#' - **SURVEYED AND PREDICTED ABUNDANCE**: dataframe with the following information:
 #' \describe{
 #' \item{*cep.names*}{Species name in CEP format}
 #' \item{*species*}{Full species name}
@@ -41,9 +42,9 @@
 #' \item{*Mixture.abundance*}{Abundance of a species indicated in the mixture/donor grassland composition}
 #' \item{*Expected.abundance*}{Expected abundance (the most achievable) of a species in a restoration site with the topographical features provided by the user}  
 #' }
-#' - **INDEXES** \describe{
-#' \item{*Mixture.Suitability.index*}{A index bounded between 0 (bad) and 1 (optimal). This index ...}
-#' \item{*Mixture.Relaiability.index*}{A index bounded between 0 (bad) and 1 (optimal). This index ...} 
+#' - **INDEXES**: \describe{
+#' \item{*MSI*}{Mixture Suitability Index (MSI). The MSI ranges from 0 (bad) to 1 (optimal). This index ...}
+#' \item{*MRI*}{Mixture Relaiability Index (MRI). The MRI ranges from 0 (bad) to 1 (optimal). This index ...} 
 #' }
 #' @import vegan tidyverse mgcv performance dplyr
 #' @export
@@ -252,8 +253,8 @@ ResNatSeed<-function(trainingDB=NULL,composition,elevation,slope,aspect){
   
   average<-list()
   average<-data.frame(
-    Mixture.Suitability.index=round(sum(db1$Expected.abundance)/sum(db1$Mixture.abundance),2),
-    Model.reliability.index=round(sum(db1$Mixture.abundance)/sum(composition$sra),2))
+    MSI=round(sum(db1$Expected.abundance)/sum(db1$Mixture.abundance),2),#Mixture.Suitability.index
+    MRI=round(sum(db1$Mixture.abundance)/sum(composition$sra),2))#Model.reliability.index
   
   table<-list()
   table<-db
