@@ -1,7 +1,7 @@
-#' Computation of Mixture Suitability Index (MSI) and Mixture Relaiability Index (MRI) for a mixture/donor grassland composition 
+#' Computation of Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) for a mixture/donor grassland composition 
 #' in a restoration site
 #'
-#' @description The function allows to compute the Mixture Suitability Index (MSI) and Mixture Relaiability Index (MRI) for a mixture/donor grassland composition 
+#' @description The function allows to compute the Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) for a mixture/donor grassland composition 
 #' in a restoration site based on topographic features, i.e. elevation, slope and aspect.
 #'
 #' @param trainingDB default is NULL. When NULL the training dataset is derived from 4081 vegetation surveys 
@@ -44,7 +44,7 @@
 #' }
 #' - **INDEXES**: \describe{
 #' \item{*MSI*}{Mixture Suitability Index (MSI). The MSI ranges from 0 (bad) to 1 (optimal). This index ...}
-#' \item{*MRI*}{Mixture Relaiability Index (MRI). The MRI ranges from 0 (bad) to 1 (optimal). This index ...} 
+#' \item{*MRI*}{Mixture Reliability Index (MRI). The MRI ranges from 0 (bad) to 1 (optimal). This index ...} 
 #' }
 #' @import vegan tidyverse mgcv performance dplyr
 #' @export

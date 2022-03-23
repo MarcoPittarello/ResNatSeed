@@ -9,7 +9,7 @@
 #' @param min.spe.abundance value of abundance beyond which species will be modelled. When NULL the parameter is set to 0.
 #' @param spe.freq minimum frequency of species occurrence within the training database. It is advisable to set values greater than/equal to 30 to allow appropriate modelling.  
 #' @return a list containing two dataframes:\cr
-#' - 1. **"cep.names"**: a two-column dataframe reporting the full species names and their abbreviations the CEP format (see \code{\link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in the mixture/donor grassland composition (i.e. in the "composition" argument of \code{\link[ResNatSeed]{ResNatSeed}}).
+#' - 1. **"cep.names"**: a two-column dataframe reporting the full species names and their abbreviations in the CEP format (see \code{\link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in the mixture/donor grassland composition (i.e. in the "composition" argument of \code{\link[ResNatSeed]{ResNatSeed}}).
 #' - 2. **"trainingDB.ResNatSeed"**: a seven-column dataframe reporting the following information: Survey ID, elevation, slope, southness, species full names, species CEP names, and species abundance. This dataframe must be used in the "trainingDB" argument of \code{\link[ResNatSeed]{ResNatSeed}}. 
 #' @details The format of the dataframe required in the "data" argument must looks as follow (the heading names do not necessarily have to be the same as those indicated, but it is essential to maintain that order):\cr
 #' 
