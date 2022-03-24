@@ -2,45 +2,47 @@
 % Please edit documentation in R/trainingDB.R
 \name{trainingDB}
 \alias{trainingDB}
-\title{Custom ResNatSeed source database and list of plant species that can be indicated in the mixture botanical composition}
+\title{Custom ResNatSeed training database and list of plant species that can be indicated in the mixture/donor grassland composition}
 \usage{
 trainingDB(data, spe.freq, min.spe.abundance = NULL)
 }
 \arguments{
 \item{data}{a dataframe where rows are surveys and columns are species. Such a dataframe must have the columns in the following order: Survey ID, Elevation, Slope, Aspect, and then columns with plant species abundance. See @details for additional and more specific information.}
 
-\item{spe.freq}{minimum number of times a species must appear in order to be modelled. It is advisable to set values greater than/equal to 30 to allow appropriate modelling.}
+\item{spe.freq}{minimum frequency (equal or greater than) of species occurrence within the training database. It is advisable to set values greater than/equal to 30 to allow appropriate modelling.}
 
-\item{min.spe.abundance}{value of abundance beyond which species will be modelled. When NULL the parameter is set to 0.}
+\item{min.spe.abundance}{value of abundance (greater than) beyond which species will be modelled. When NULL the parameter is set to 0.}
 }
 \value{
 a list containing two dataframes:\cr
 \itemize{
-\item 1- \strong{"cep.names"}: a two-column dataframe reporting the full species names and their abbreviations the CEP format (see \code{\link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in mixture botanical composition.
-\item 2- \strong{"sourceDB.ResNatSeed"}: a seven-column dataframe reporting the following information: Survey ID, elevation, slope, southness, species full names, species CEP names, and species abundance. This dataframe must be used in the “sourceDB” argument of the \code{\link[ResNatSeed]{ResNatSeed}} function.
+\item \strong{"cep.names"}: a two-column dataframe reporting the full species names and their abbreviations in the CEP format (see \code{\link[vegan]{make.cepnames}} for more details). These species are those that can be indicated (as CEP names) in the mixture/donor grassland composition (i.e. in the "composition" argument of \code{\link[ResNatSeed]{RestInd}}).
+\item \strong{"trainingDB.ResNatSeed"}: a seven-column dataframe reporting the following information: Survey ID, elevation, slope, southness, species full names, species CEP names, and species abundance. This dataframe must be used in the "trainingDB" argument of \code{\link[ResNatSeed]{RestInd}}.
 }
 }
 \description{
-This function is to be used in case you do not want to use the source database set by default in the function \code{\link[ResNatSeed]{ResNatSeed}}, which includes vegetation surveys carried out in the Region Piedmont, Italy. \cr
+This function is to be used in case the user does not want to use the training database set by default in the function \code{\link[ResNatSeed]{RestInd}}, which includes vegetation surveys carried out in the Region Piedmont, Italy. \cr
+Starting from a database containing topographic variables (elevation, slope and aspect) and plant species abundances, the function allows to generate:
 \itemize{
-\item 1 - the list of plant species that can be indicated in the mixture botanical composition with associated their species codes in CEP names format (see \code{\link[vegan]{make.cepnames}} for more details)
-\item 2 - a source database in the format requested as input in the \code{\link[ResNatSeed]{ResNatSeed}} function.
+\item the list of plant species that can be indicated in the mixture/donor grassland composition with associated their species codes in CEP names format (see \code{\link[vegan]{make.cepnames}} for more details)
+\item a training database in the format requested as input in the \code{\link[ResNatSeed]{RestInd}} function.
 }
 }
 \details{
-The format of the dataframe required in the "data" argument must looks as follow (the headings do not necessarily have to be the same as those indicated, but it is essential to maintain that order):\cr
+The format of the dataframe required in the "data" argument must looks as follow (the heading names do not necessarily have to be the same as those indicated, but it is essential to maintain that order):\cr
 
-SurveyID   Elevation   Slope   Aspect   Species1   Species2   Species3   Species…\cr
+SurveyID   |    Elevation   |    Slope   |    Aspect   |    Species1   |    Species2   |    Species3   |    Species…\cr
 \itemize{
 \item \strong{SurveyID} should contain an alphanumeric coding
 \item \strong{Elevation} expressed in meters above sea level (m a.s.l.)
 \item \strong{Slope} expressed in degrees (°)
-\item \strong{Aspect} expressed in degrees from North (°N) as it will be converted to "southness" to avoid circular variable issues in the models run with \code{\link{ResNatSeed}} (Chang et al., 2004)
+\item \strong{Aspect} expressed in degrees from North (°N) as it will be converted to "southness" to avoid circular variable issues in the models run with \code{\link[ResNatSeed]{RestInd}} (Chang et al., 2004)
 \item \strong{Species} columns contains plant species abundance, either expressed as percentage, Species Relative Cover (SRA), Species Percentage Cover (\%SC)(see more details regarding the last two terminologies in \code{\link[iPastoralist]{vegetation_abundance}} or \href{ https://raw.githubusercontent.com/MarcoPittarello/iPastoralist/main/image/Wrkflw_abundance_conversion.png }{here} \cr
 }
 }
 \references{
 \itemize{
 \item Chang, C., P. Lee, M. Bai, and T. Lin. 2004. Predicting the geographical distribution of plant communities in complex terrain–a case study in Fushian Experimental Forest, north- eastern Taiwan. Ecography. 27:577–588. doi:10.1111/j.0906- 7590.2004.03852.x
+\item Marco Pittarello (2022). iPastoralist: Management, conversion, and analyses of vegetation data derived from phytosociological and point-quadrat method surveys. R package version 0.0.0.9000. https://github.com/MarcoPittarello/iPastoralist.git
 }
 }
