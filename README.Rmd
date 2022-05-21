@@ -1,0 +1,29 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ResNatSeed
+
+The goal of ResNatSeed is to ...
+
+## Installation
+
+You can install the development version of ResNatSeed from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("MarcoPittarello/ResNatSeed")
+```
+
+Everything still up to date..work in progress
