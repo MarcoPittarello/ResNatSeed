@@ -1,0 +1,21 @@
+---
+title: "TUTORIAL 2 -Customized training database"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TUTORIAL_2_-_Customized_training_database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ResNatSeed)
+```
+
+

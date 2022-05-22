@@ -1,0 +1,31 @@
+---
+title: "Package installation and ShinyApp"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Package_installation_and_ShinyApp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ResNatSeed)
+```
+
+You can install *ResNatSeed* in R environment by running the following code:
+
+```
+install.packages("devtools")
+library(devtools)
+install_github("MarcoPittarello/ResNatSeed",build_vignettes = TRUE)
+```
+
+Otherwise, *ResNatSeed* is available as a ShinyApp version at the following web address:
+
+[https://marco-pittarello.shinyapps.io/ResNatSeed_ShinyApp/](https://marco-pittarello.shinyapps.io/ResNatSeed_ShinyApp/)

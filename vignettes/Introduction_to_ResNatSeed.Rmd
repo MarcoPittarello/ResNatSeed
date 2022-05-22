@@ -1,0 +1,44 @@
+---
+title: "Introduction to ResNatSeed"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction_to_ResNatSeed}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ResNatSeed)
+```
+
+# Cosa fa
+
+Calcoli basati su datset Piemonte, se si opera in altre aree geografiche si può 
+selezionare un database ad hoc (vedi definizione **training database** nel paragrafo successivo)
+
+# parole chiave
+
+**training database**:
+
+**species codes - CEP names**: 
+
+**mixture/donor grassland composition**:
+
+**Mixture Suitability Index (MSI)**:
+
+**Mixture Reliability Index (MRI)**:
+
+# Come si usa
+
+L'utilizzo di ResNatSeed segue due procedimenti diversi a seconda che si utilizzi il training database di default (i.e. Piemonte) oppure uno specificato dall'utente. 
+
+* **DEFAULT** training database ==> consultare la vignetta **TUTORIAL 1 - Default training database**
+
+* **CUSTOMIZED** training database  ==> consultare la vignetta **TUTORIAL 2 - Customized training database**

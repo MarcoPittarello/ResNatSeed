@@ -1,0 +1,72 @@
+---
+title: "TUTORIAL 1 - Default training database"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TUTORIAL_1_-_Default_training_database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ResNatSeed)
+```
+
+When using the database with vegetation data from the Piedmont Region, it is first necessary to have the species list that can be used in the mixture/donor grassland composition. These species are those that can actually be modelled and amount to 258 species. 
+Each species, whose name refers to the Flora Alpina nomenclature (Aeschimann et al 2004), is also associated with the code 'cep.names', an abbreviation of species names according to the Cornell Ecology Programs (CEP), which uses eight-letter abbreviations for species. The CEP names code will be the one to consider when formulating the mixture/donor grassland.
+
+The following function must be run to extract the species list:
+
+```{r echo=TRUE}
+data("cep.piem")
+
+head(cep.piem)
+
+```
+
+From the list of species in 'cep.piem', it is necessary to create a database containing the mixture/donor grassland composition. The database consists of two columns:
+
+* First column: species code abbreviated in CEP names format
+* Second column: abundance of the species. Abundance can be expressed as a percentage
+
+In this example, the mixture/donor grassland composition is characterised by five species: 
+
+* Bromus erectus (CEP name: Bromere), abundance: 25%
+* Brachypodium rupestre (CEP name: Bracrupe), abundance: 18%
+* Festuca ovina aggr. (CEP name: Festaggr), abundance: 22%
+* Knautia arvensis (CEP name: Knauarve), abundance: 8%
+* Silene vulgaris (CEP name: Silevulg), abundance: 5%
+
+Total abundances amount to 78%. The total abundance of the mixture/donor grassland composition does not necessarily have to be 100%. 
+
+We therefore create the database of the mixture/donor grassland composition:
+
+```{r}
+donor.composition<-data.frame(
+  species=c("Bromere","Bracrupe","Festaggr","Knauarve","Silevulg"),
+  abundance=c(25,18,22,8,5)
+)
+
+donor.composition
+```
+It is now possible to use the *RestInd* function to calculate the Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) of the donor grassland composition (dataframe 'donor.composition') at a site with the following topographical characteristics:
+
+* elevation: 2300 m above sea level
+* slope: 15°
+* aspect: 135° N
+
+```{r echo=TRUE}
+RestInd(trainingDB = NULL, 
+        composition=donor.composition,  
+        elevation=2300, 
+        slope=15, 
+        aspect=135
+        )
+```
+
