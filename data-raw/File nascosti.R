@@ -2,5 +2,5 @@
 
 #caricare il file trainingPie.resnatseed e far girare questo
 
-usethis::use_data(trainingPie.resnatseed,veg.composition.example, internal = T,overwrite = T)
+usethis::use_data(trainingPie.resnatseed, internal = T,overwrite = T)
 
