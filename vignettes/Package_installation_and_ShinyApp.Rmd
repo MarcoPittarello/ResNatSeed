@@ -14,11 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(ResNatSeed)
-```
-
-You can install *ResNatSeed* in R environment by running the following code:
+*ResNatSeed* can be installed in R environment by running the following code:
 
 ```
 install.packages("devtools")
@@ -26,6 +22,28 @@ library(devtools)
 install_github("MarcoPittarello/ResNatSeed",build_vignettes = TRUE)
 ```
 
-Otherwise, *ResNatSeed* is available as a ShinyApp version at the following web address:
+Otherwise, *ResNatSeed* is available as a ShinyApp version in these ways: 
 
-[https://marco-pittarello.shinyapps.io/ResNatSeed_ShinyApp/](https://marco-pittarello.shinyapps.io/ResNatSeed_ShinyApp/)
+* at the following web address (totally independent from the R environment): [https://marco-pittarello.shinyapps.io/ResNatSeed_ShinyApp/](https://marco-pittarello.shinyapps.io/ResNatSeed_ShinyApp/)
+
+* in R studio:
+  * **With an internet connection needed**
+  
+  Run the following code
+         
+          ```
+          install.packages('shiny') 
+          library(shiny) 
+          runGitHub('ResNatSeed_ShinyApp','MarcoPittarello')
+          ```
+    
+  * **Without any internet connection needed**
+  
+      The internet connection is not needed except for the first two steps, which however are required only once to download locally the app.
+      
+      
+      * 1 - go [here](https://github.com/MarcoPittarello/ResNatSeed_ShinyApp)
+      * 2 - click on 'CODE' (green button) and then 'DOWNLOAD ZIP' file, named 'ResNatSeed_ShinyApp-master' 
+      * 3 - unzip the downloaded file (from now on, it will no longer be necessary to have an internet connection)
+      * 4 - open the unzipped folder and click on ‘app.R’, R studio will open 
+      * 5 – click ‘Run App’ on the right-upper corner of source panel and enjoy the App!!

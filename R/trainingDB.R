@@ -23,7 +23,7 @@
 #' 
 #' @references * Chang, C., P. Lee, M. Bai, and T. Lin. 2004. Predicting the geographical distribution of plant communities in complex terrain–a case study in Fushian Experimental Forest, north- eastern Taiwan. Ecography. 27:577–588. doi:10.1111/j.0906- 7590.2004.03852.x
 #' * Marco Pittarello (2022). iPastoralist: Management, conversion, and analyses of vegetation data derived from phytosociological and point-quadrat method surveys. R package version 0.0.0.9000. https://github.com/MarcoPittarello/iPastoralist.git
-#' @import vegan tidyverse dplyr
+#' @import vegan tidyr
 #' @export
 
 trainingDB<-function(data,spe.freq,min.spe.abundance=NULL){
