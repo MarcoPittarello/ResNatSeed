@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(ResNatSeed)
 ```
 
-When using the database with vegetation data from the Piedmont Region, it is first necessary to have the species list that can be used in the mixture/donor grassland composition. These species are those that can actually be modelled and amount to 258 species. 
+When the training database is the default one, which is based on vegetation surveys from the Piedmont Region, it is first necessary to have the species list that can be used in the mixture/donor grassland composition. These species are those that can actually be modelled and amount to 258 species. 
 Each species, whose name refers to the Flora Alpina nomenclature (Aeschimann et al 2004), is also associated with the code 'cep.names', an abbreviation of species names according to the Cornell Ecology Programs (CEP), which uses eight-letter abbreviations for species. The CEP names code will be the one to consider when formulating the mixture/donor grassland.
 
 The following function must be run to extract the species list:
