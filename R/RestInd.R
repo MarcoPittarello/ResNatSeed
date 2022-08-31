@@ -1,4 +1,4 @@
-#' Computation of Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) for a mixture/donor grassland composition 
+#' Computation of Suitability Index (SI) and Reliability Index (RI) for a seed mixture or donor grassland composition 
 #' in a restoration site
 #'
 #' @description The function allows to compute the Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) for a mixture/donor grassland composition 
@@ -42,8 +42,8 @@
 #' \item{*Expected.abundance*}{Expected abundance (the most achievable) of a species in a restoration site with the topographical features provided by the user}  
 #' }
 #' - **INDEXES**: \describe{
-#' \item{*MSI*}{Mixture Suitability Index (MSI). The MSI ranges from 0 (bad) to 1 (optimal). This index ...}
-#' \item{*MRI*}{Mixture Reliability Index (MRI). The MRI ranges from 0 (bad) to 1 (optimal). This index ...} 
+#' \item{*SI*}{Suitability Index (SI). The SI ranges from 0 (bad) to 1 (optimal). This index ...}
+#' \item{*RI*}{Reliability Index (RI). The RI ranges from 0 (bad) to 1 (optimal). This index ...} 
 #' }
 #' @import vegan tidyverse mgcv performance dplyr
 #' @examples #creation of mixture composition dataframe by retrieving species CEP names from ResNatSeed::cep.piem
@@ -259,8 +259,8 @@ RestInd<-function(trainingDB=NULL,composition,elevation,slope,aspect){
   
   average<-list()
   average<-data.frame(
-    MSI=round(sum(db1$Expected.abundance)/sum(db1$Mixture.abundance),2),#Mixture.Suitability.index
-    MRI=round(sum(db1$Mixture.abundance)/sum(composition$sra),2))#Model.reliability.index
+    SI=round(sum(db1$Expected.abundance)/sum(db1$Mixture.abundance),2),#Suitability.index
+    RI=round(sum(db1$Mixture.abundance)/sum(composition$sra),2))#Reliability.index
   
   table<-list()
   table<-db

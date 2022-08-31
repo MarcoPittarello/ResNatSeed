@@ -25,15 +25,17 @@ selezionare un database ad hoc (vedi definizione **training database** nel parag
 
 # parole chiave
 
-**training database**:
+**vegetation and topographical variables database**: dataframe containing the composition of a set of vegetation surveys and their corresponding topographic variables (elevation, slope and aspect)
+
+**training database**: dataframe with the species eligible for the statistical modelling, selected on the basis of their frequency and abundance in the **vegetation and topographical variables database**. To each species are associated the values of topographic variables (elevation, slope and aspect).
 
 **species codes - CEP names**: 
 
-**mixture/donor grassland composition**:
+**seed mixture and donor grassland composition**:
 
-**Mixture Suitability Index (MSI)**:
+**Suitability Index (SI)**: suitability of a seed mixture or donor grassland to restore a site with specific topographic characteristics. It ranges between 0 and 1. When SI=0 the restoration site is totally beyond the optimal ecological ranges of all species of the seed mixture or donor grassland, which is therefore not appropriate for the site restoration. Conversely, when SI=1 the restoration site has the optimal ecological conditions for all species of the seed mixture or donor grassland, which is therefore perfectly appropriate for the site restoration.
 
-**Mixture Reliability Index (MRI)**:
+**Reliability Index (RI)**: 
 
 # Come si usa
 

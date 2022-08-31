@@ -1,4 +1,4 @@
-#' Custom ResNatSeed training database and list of plant species that can be indicated in the mixture/donor grassland composition 
+#' Customized ResNatSeed training database and list of plant species that can be indicated in the seed mixture or donor grassland composition 
 #'
 #' @description This function is to be used in case the user does not want to use the training database set by default in the function \code{\link[ResNatSeed]{RestInd}}, which includes vegetation surveys carried out in the Region Piedmont, Italy. \cr
 #' Starting from a database containing topographic variables (elevation, slope and aspect) and plant species abundances, the function allows to generate:

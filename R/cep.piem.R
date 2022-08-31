@@ -1,4 +1,4 @@
-#' List of species from the Piedmont Region (Italy) that can be used in the mixture mixture/donor grassland composition 
+#' List of species from the Piedmont Region (Italy) that can be used in the seed mixture or donor grassland composition 
 #'
 #' A dataframe with the 258 plant species and their name abbreviation 
 #' suitable for modeling when the "data" argument of \code{\link[ResNatSeed]{trainingDB}} function 
