@@ -41,6 +41,6 @@ selezionare un database ad hoc (vedi definizione **training database** nel parag
 
 L'utilizzo di ResNatSeed segue due procedimenti diversi a seconda che si utilizzi il training database di default (i.e. Piemonte) oppure uno specificato dall'utente. 
 
-* **DEFAULT** training database ==> consultare la vignetta **TUTORIAL 1 - Default training database**
+* **DEFAULT** training database ==> see the vignette **TUTORIAL 1 - Default training database**
 
-* **CUSTOMIZED** training database  ==> consultare la vignetta **TUTORIAL 2 - Customized training database**
+* **CUSTOMIZED** training database  ==> see the vignette **TUTORIAL 2 - Customized training database**
