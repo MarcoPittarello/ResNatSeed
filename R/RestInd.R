@@ -1,23 +1,25 @@
 #' Computation of Suitability Index (SI) and Reliability Index (RI) for a seed mixture or donor grassland composition 
 #' in a restoration site
 #'
-#' @description The function allows to compute the Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) for a mixture/donor grassland composition 
-#' in a restoration site based on the following topographic features: elevation, slope and aspect.
+#' @description The function allows to compute the Suitability Index (SI) and Reliability Index (RI) for a seed mixture or donor grassland composition 
+#' in a restoration site based on the following topographic features: elevation, slope and aspect.\cr
+#' 
+#' see vignettes for additional details and examples
 #'
 #' @param trainingDB default is NULL. When NULL the training dataset is derived from 4081 
 #' vegetation surveys carried out in Piedmont Region, Italy. A customized training dataset can be generated with \code{\link[ResNatSeed]{trainingDB}}
 #' and then provided to "trainingDB" argument.
-#' @param composition dataframe with the mixture/donor grassland composition. The dataframe 
+#' @param composition dataframe with the seed mixture or donor grassland composition. The dataframe 
 #' consists of two columns: 1) species code abbreviated in CEP names format and 2) abundance 
 #' of the species. When "trainingDB" is NULL, the species CEP names are retrievable from 
 #' \code{\link[ResNatSeed]{cep.piem}} data. When "trainingDB" is not NULL, i.e. the user does not use
 #' default settings, species CEP names are retrievable from \code{\link[ResNatSeed]{trainingDB}}, which
-#' generates CEP names of species suitable for modeling from a customized trainind dataset. 
+#' generates CEP names of species suitable for modeling from a customized training dataset. 
 #' @param elevation Elevation of restoration site, expressed in meters above sea level (m a.s.l.)
 #' @param slope Slope of restoration site, expressed in degrees (°)
 #' @param aspect Aspect of restoration site, expressed in degrees from North (°N)
 #' @return A list with three outputs:
-#' - **DESCRIPTIVES**: dataframe with the descriptive information related to species used in the mixture/donor grassland composition:
+#' - **DESCRIPTIVES**: dataframe with the descriptive information related to species used in the seed mixture or donor grassland composition:
 #' \describe{
 #' \item{*cep.names*}{Species name in CEP format}
 #' \item{*species*}{Full species name}
@@ -38,7 +40,7 @@
 #' \item{*ratio*}{Ratio between the predicted abundance and the maximum abundance achievable. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
 #' \item{*R2.adj*}{R square adjusted of the best GAM}
 #' \item{*RMSE*}{Root Mean Square Error of the best GAM}
-#' \item{*Mixture.abundance*}{Abundance of a species indicated in the mixture/donor grassland composition}
+#' \item{*Mixture.abundance*}{Abundance of a species indicated in the seed mixture or donor grassland composition}
 #' \item{*Expected.abundance*}{Expected abundance (the most achievable) of a species in a restoration site with the topographical features provided by the user}  
 #' }
 #' - **INDEXES**: \describe{

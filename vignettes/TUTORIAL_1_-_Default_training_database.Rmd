@@ -1,10 +1,12 @@
 ---
 title: "TUTORIAL 1 - Default training database"
+author: "Marco Pittarello and Davide Barberis"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{TUTORIAL_1_-_Default_training_database}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: references.bib
 ---
 
 ```{r, include = FALSE}
@@ -18,7 +20,7 @@ knitr::opts_chunk$set(
 library(ResNatSeed)
 ```
 
-When the training database is the default one (i.e. based on vegetation surveys from the Piedmont Region - North-Western Italy), it is first necessary to provide the species list of a single seed mixture or donor grassland and their abundance. Species of the default training database are 258. The species names follow the Flora Alpina nomenclature (Aeschimann et al., 2004) and they are associated with the 'cep.names' code. This is an eight-letter abbreviation of species names according to the Cornell Ecology Programs (CEP). The seed mixture or donor grassland composition must follow the CEP name codes listed in data("cep.piem"):
+When the training database is the default one (i.e. based on vegetation surveys from the Piedmont Region - North-Western Italy), it is first necessary to provide the species list of a single seed mixture or donor grassland and their abundance. Species of the default training database are 258. The species names follow the Flora Alpina nomenclature [@aeschimann2004] and they are associated with the 'cep.names' code. This is an eight-letter abbreviation of species names according to the Cornell Ecology Programs (CEP). The seed mixture or donor grassland composition must follow the CEP name codes listed in `data("cep.piem")`:
 
 ```{r echo=TRUE}
 data("cep.piem")
@@ -29,16 +31,16 @@ head(cep.piem)
 
 The seed mixture or donor grassland composition must be a dataframe with two columns:
 
--   First column: species code abbreviated in CEP names format
--   Second column: abundance of each species. Abundance must be a number bounded between 0 and 100, which can be either a species relative abundance or a species cover (sensu Pittarello 2016, Verdinelli 2022).
+-   **First column**: species code abbreviated in CEP names format
+-   **Second column**: abundance of each species. Abundance must be a number bounded between 0 and 100, which can be either a species relative abundance or a species cover (*sensu* [@pittarello2016]; [@verdinelli2022]).
 
 In this example, the donor grassland composition is characterized by five species:
 
--   Bromus erectus (CEP name: Bromere), relative abundance: 25%
--   Brachypodium rupestre (CEP name: Bracrupe), relative abundance: 18%
--   Festuca ovina aggr. (CEP name: Festaggr), relative abundance: 22%
--   Knautia arvensis (CEP name: Knauarve), relative abundance: 8%
--   Silene vulgaris (CEP name: Silevulg), relative abundance: 5%
+-   *Bromus erectus* (CEP name: Bromere), relative abundance: 25%
+-   *Brachypodium rupestre* (CEP name: Bracrupe), relative abundance: 18%
+-   *Festuca ovina* aggr. (CEP name: Festaggr), relative abundance: 22%
+-   *Knautia arvensis* (CEP name: Knauarve), relative abundance: 8%
+-   *Silene vulgaris* (CEP name: Silevulg), relative abundance: 5%
 
 Total abundances amount to 78%. The total abundance of the seed mixture or donor grassland composition should not necessarily amount 100%.
 
@@ -53,7 +55,7 @@ donor.composition<-data.frame(
 donor.composition
 ```
 
-It is now possible to use the *RestInd* function to calculate the Suitability Index (SI) and Reliability Index (RI) by means of the donor grassland composition (dataframe 'donor.composition') and of the elevation, slope, and aspect of restoration site:
+It is now possible to use the *`RestInd`* function to calculate the **Suitability Index (SI)** and **Reliability Index (RI)** by means of the donor grassland composition (dataframe 'donor.composition') and of the elevation, slope, and aspect of restoration site:
 
 -   elevation: 2300 m a.s.l
 -   slope: 15°
@@ -69,7 +71,3 @@ RestInd(trainingDB = NULL,
 ```
 
 ## References
-
--   Pittarello, M., Probo, M., Lonati, M., Lombardi, G., 2016. Restoration of sub-alpine shrub-encroached grasslands through pastoral practices: effects on vegetation structure and botanical composition. Appl Veg Sci 19, 381--390. <https://doi.org/10.1111/avsc.12222>
-
--   Verdinelli, M., Pittarello, M., Caria, M.C., Piga, G., Roggero, P.P., Marrosu, G.M., Arrizza, S., Fadda, M.L., Lombardi, G., Lonati, M., Nota, G., Sitzia, M., Bagella, S., 2022. Congruent responses of vascular plant and ant communities to pastoral land-use abandonment in mountain areas throughout different biogeographic regions. Ecol Process 11, 35. <https://doi.org/10.1186/s13717-022-00379-9>
