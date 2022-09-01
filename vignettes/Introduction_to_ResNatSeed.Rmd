@@ -30,7 +30,7 @@ library(ResNatSeed)
 
 **vegetation and topographical variables database**: dataframe containing the composition of a set of vegetation surveys and their corresponding topographic variables (elevation, slope and aspect)
 
-**training database**: dataframe with the species eligible for the statistical modelling, selected on the basis of their frequency and abundance in the **vegetation and topographical variables database**. To each species are associated the values of topographic variables (elevation, slope and aspect).
+**training database**: dataframe with the species eligible for the statistical modelling, selected on the basis of their frequency and abundance in the **vegetation and topographical variables database**. Each species is associated with the values of topographic variables (elevation, slope and aspect) and its abundance.
 
 **species codes - CEP names**: an eight-letter abbreviation of species names according to the Cornell Ecology Programs (CEP). **[vegan]{make.cepnames}**
 

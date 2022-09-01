@@ -1,15 +1,16 @@
-#' Computation of Suitability Index (SI) and Reliability Index (RI) for a seed mixture or donor grassland composition 
-#' in a restoration site
+#' Computation of Suitability Index (SI) and Reliability Index (RI)
 #'
-#' @description The function allows to compute the Suitability Index (SI) and Reliability Index (RI) for a seed mixture or donor grassland composition 
-#' in a restoration site based on the following topographic features: elevation, slope and aspect.\cr
+#' @description The function allows to compute the Suitability Index (SI) and Reliability Index (RI) for a seed mixture or 
+#' donor grassland composition to be used in a restoration site based on topographic features: elevation, slope and aspect.\cr
 #' 
 #' see vignettes for additional details and examples
 #'
-#' @param trainingDB default is NULL. When NULL the training dataset is derived from 4081 
-#' vegetation surveys carried out in Piedmont Region, Italy. A customized training dataset can be generated with \code{\link[ResNatSeed]{trainingDB}}
-#' and then provided to "trainingDB" argument.
-#' @param composition dataframe with the seed mixture or donor grassland composition. The dataframe 
+#' @param trainingDB dataframe with the species eligible for the statistical modelling, selected on the basis of their 
+#' frequency and abundance in the vegetation and topographical variables database. Each species is associated with the 
+#' values of topographic variables (elevation, slope and aspect) and its abundance. Default is NULL. When NULL the training dataset is derived from 4081 
+#' vegetation surveys carried out in Piedmont Region, (North-Western Italy). A customized training dataset can be generated 
+#' with \code{\link[ResNatSeed]{trainingDB}} and then provided to "trainingDB" argument.
+#' @param composition dataframe with the seed mixture or donor grassland composition. It
 #' consists of two columns: 1) species code abbreviated in CEP names format and 2) abundance 
 #' of the species. When "trainingDB" is NULL, the species CEP names are retrievable from 
 #' \code{\link[ResNatSeed]{cep.piem}} data. When "trainingDB" is not NULL, i.e. the user does not use
@@ -19,29 +20,29 @@
 #' @param slope Slope of restoration site, expressed in degrees (°)
 #' @param aspect Aspect of restoration site, expressed in degrees from North (°N)
 #' @return A list with three outputs:
-#' - **DESCRIPTIVES**: dataframe with the descriptive information related to species used in the seed mixture or donor grassland composition:
+#' - **DESCRIPTIVES**: dataframe with the descriptive information related to modeled plant species:
 #' \describe{
 #' \item{*cep.names*}{Species name in CEP format}
 #' \item{*species*}{Full species name}
-#' \item{*cases.number*}{Number of cases related to each species}
-#' \item{*min.ele*}{Minimum elevation at which a species has been detected in the training dataset}
-#' \item{*max.ele*}{Maximum elevation at which a species has been detected in the training dataset}
-#' \item{*min.slope*}{Minimum slope at which a species has been detected in the training dataset}
-#' \item{*max.slope*}{Maximum slope at which a species has been detected in the training dataset}
-#' \item{*min.south*}{Minimum southness value at which a species has been detected in the training dataset}
-#' \item{*max.south*}{Maximum southness value at which a species has been detected in the training dataset}  
+#' \item{*n.obs*}{Number of observations of each species selected for modeling}
+#' \item{*min.ele*}{Minimum elevation at which a species occurred}
+#' \item{*max.ele*}{Maximum elevation at which a species occurred}
+#' \item{*min.slope*}{Minimum slope at which a species occurred}
+#' \item{*max.slope*}{Maximum slope at which a species occurred}
+#' \item{*min.south*}{Minimum southness value at which a species occurred}
+#' \item{*max.south*}{Maximum southness value at which a species occurred}  
 #' }
-#' - **SURVEYED AND PREDICTED ABUNDANCE**: dataframe with the following information:
+#' - **SPECIES ABUNDANCES**: dataframe with the following information:
 #' \describe{
 #' \item{*cep.names*}{Species name in CEP format}
 #' \item{*species*}{Full species name}
-#' \item{*predicted.Abundance*}{Abundance of each species predicted by the best Generalized Additive Model (GAM) based on elevation, slope, and aspect of restoration site provided by the user}
-#' \item{*predicted.AbundanceMax*}{Maximum abundance achievable by a species under the best possible ecological conditions, identified by all possible combinations of altitude, slope and southness. This maximum abundance is predicted by the best GAM and the limits of the three topographic variables are indicated in the output of the descriptives }
-#' \item{*ratio*}{Ratio between the predicted abundance and the maximum abundance achievable. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
-#' \item{*R2.adj*}{R square adjusted of the best GAM}
-#' \item{*RMSE*}{Root Mean Square Error of the best GAM}
-#' \item{*Mixture.abundance*}{Abundance of a species indicated in the seed mixture or donor grassland composition}
-#' \item{*Expected.abundance*}{Expected abundance (the most achievable) of a species in a restoration site with the topographical features provided by the user}  
+#' \item{*PMA*}{Predicted Maximum Abundance. It is the maximum achievable abundance of a species in the restoration site, as predicted by the best model}
+#' \item{*POA*}{Predicted Optimal Abundace. It is the maximum achievable abundance of a species in its optimal ecological condition, based on all possible combinations of elevation, slope and southness.}
+#' \item{*ratio*}{Ratio between the *PMA* and *POA*. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
+#' \item{*R2.adj*}{R square adjusted of the best Generalized Additive Model}
+#' \item{*RMSE*}{Root Mean Squared Error of the best Generalized Additive Model}
+#' \item{*SmDgA*}{Seed mixture or Donor grassland Abundance. Abundance of a species listed in the seed mixture or donor grassland composition imported by the user and eligible for modeling}
+#' \item{*EA*}{Expected Abundance. The highest achievable abundance of a species in a restoration site, based on how far the species is from the ecological optimum (i.e. computed from the multiplication of SmDgA by the ratio)}  
 #' }
 #' - **INDEXES**: \describe{
 #' \item{*SI*}{Suitability Index (SI). The SI ranges from 0 (bad) to 1 (optimal). This index ...}
@@ -127,7 +128,7 @@ RestInd<-function(trainingDB=NULL,composition,elevation,slope,aspect){
     descriptive[[i]]<-format(data.frame(row.names = FALSE,
                                         cep.names=unique(merge.selected.unique$cep.names),
                                         species=unique(merge.selected.unique$species),
-                                        cases.number=nrow(merge.selected.unique),
+                                        n.obs=nrow(merge.selected.unique),
                                         min.ele=min(merge.selected.unique$elevation),
                                         max.ele=max(merge.selected.unique$elevation),
                                         min.slope=min(merge.selected.unique$slope),
@@ -225,10 +226,10 @@ RestInd<-function(trainingDB=NULL,composition,elevation,slope,aspect){
     
     #table with species name and predicted abundance values
     df.species.predicted<-data.frame(species= unique(species$species),
-                                     predicted.Abundance=species.predicted,
-                                     predicted.AbundanceMax=max(species.predicted.max))
+                                     PMA=species.predicted,
+                                     POA=max(species.predicted.max))
     
-    df.species.predicted$ratio<-round(df.species.predicted$predicted.Abundance/df.species.predicted$predicted.AbundanceMax,2)
+    df.species.predicted$ratio<-round(df.species.predicted$PMA/df.species.predicted$POA,2)
     
     
     if (exists("def")==FALSE){
@@ -236,7 +237,7 @@ RestInd<-function(trainingDB=NULL,composition,elevation,slope,aspect){
       df.species.predicted$RMSE<-NA
     }else {
       
-      if (is.na(df.species.predicted$predicted.AbundanceMax)){
+      if (is.na(df.species.predicted$POA)){
         df.species.predicted$R2.adj<-NA
         df.species.predicted$RMSE<-NA
       } else{
@@ -254,15 +255,15 @@ RestInd<-function(trainingDB=NULL,composition,elevation,slope,aspect){
   lista.predicted.merged<-do.call(rbind,lista.predicted)#merging the tables of the predicted values
   
   db<-merge(lista.predicted.merged,composition,by.x = "row.names",by.y = "cep.names")
-  colnames(db)[8]<-"Mixture.abundance"
+  colnames(db)[8]<-"SmDgA"
   colnames(db)[1]<-"cep.names"
-  db$Expected.abundance<-round(db$Mixture.abundance*db$ratio,2)
+  db$EA<-round(db$SmDgA*db$ratio,2)
   db1<-db[complete.cases(db),]#delete NA
   
   average<-list()
   average<-data.frame(
-    SI=round(sum(db1$Expected.abundance)/sum(db1$Mixture.abundance),2),#Suitability.index
-    RI=round(sum(db1$Mixture.abundance)/sum(composition$sra),2))#Reliability.index
+    SI=round(sum(db1$EA)/sum(db1$SmDgA),2),#Suitability.index
+    RI=round(sum(db1$SmDgA)/sum(composition$sra),2))#Reliability.index
   
   table<-list()
   table<-db
@@ -270,7 +271,7 @@ RestInd<-function(trainingDB=NULL,composition,elevation,slope,aspect){
   table.descriptive<-do.call(rbind,descriptive)#merging the tables of the predicted values
   
   return(list(DESCRIPTIVES=table.descriptive,
-              SURVEYED_AND_PREDICTED_ABUNDANCE=table,
+              SPECIES_ABUNDANCES=table,
               INDEXES=average))
   
 }
