@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 library(ResNatSeed)
 ```
 
-When the training database is the default one (i.e. based on vegetation surveys from the Piedmont Region - North-Western Italy), it is first necessary to provide the species list of a single seed mixture or donor grassland and their abundance. Species of the default training database are 258. The species names follow the Flora Alpina nomenclature [@aeschimann2004] and they are associated with the 'cep.names' code. This is an eight-letter abbreviation of species names according to the Cornell Ecology Programs (CEP). The seed mixture or donor grassland composition must follow the CEP name codes listed in `data("cep.piem")`:
+When the user uses default settings, the training database refers to the vegetation surveys from the Piedmont Region - North-Western Italy, which includes 258 plant species eligible to modeling. Such a list can be extracted through the command `data("cep.piem")`. Species names follow the Flora Alpina nomenclature [@aeschimann2004] and they are associated with the 'cep.names' code, an eight-letter abbreviation of species names according to the Cornell Ecology Programs (CEP).
 
 ```{r echo=TRUE}
 data("cep.piem")
@@ -29,7 +29,7 @@ head(cep.piem)
 
 ```
 
-The seed mixture or donor grassland composition must be a dataframe with two columns:
+From this list is possible to create the mixture or donor grassland composition database, which is characterized by two columns:
 
 -   **First column**: species code abbreviated in CEP names format
 -   **Second column**: abundance of each species. Abundance must be a number bounded between 0 and 100, which can be either a species relative abundance or a species cover (*sensu* [@pittarello2016]; [@verdinelli2022]).
