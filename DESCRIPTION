@@ -1,6 +1,6 @@
 Package: ResNatSeed
 Title: A tool for the assessment of the REStoration potential of NATive SEEDs based on topographic factors
-Version: 0.0.0.9000
+Version: 1.0.0.
 Authors@R: c(
      person(given = "Marco",
            family = "Pittarello",
@@ -11,17 +11,9 @@ Authors@R: c(
            family = "Barberis",
            role = "aut",
            email = "davide.barberis@unito.it",
-           comment = c(ORCID = "?????")),
-     person(given = "Michele",
-           family = "Lonati",
-           role = "aut",
-           comment = c(ORCID = "?????")),
-    person(given = "Giampiero",
-           family = "Lombardi",
-           role = "aut",
            comment = c(ORCID = "?????"))
            )
-Description: What the package does (one paragraph).
+Description: ResNatSeed is an R package that compute the suitability of a certain seed mixture with a site where the seeds would be sown for restoration purposes in a degraded site.
 URL: https://github.com/MarcoPittarello/ResNatSeed
 Imports: vegan,tidyverse,performance,mgcv,dplyr
 License: GPL (>= 3)
