@@ -6,7 +6,7 @@
 \alias{ResNatSeed-package}
 \title{ResNatSeed: A tool for the assessment of the REStoration potential of NATive SEEDs based on topographic factors}
 \description{
-What the package does (one paragraph).
+ResNatSeed is an R package that compute the suitability of a certain seed mixture with a site where the seeds would be sown for restoration purposes in a degraded site.
 }
 \seealso{
 Useful links:
@@ -20,9 +20,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Davide Barberis \email{davide.barberis@unito.it} (\href{https://orcid.org/?????}{ORCID})
-  \item Michele Lonati (\href{https://orcid.org/?????}{ORCID})
-  \item Giampiero Lombardi (\href{https://orcid.org/?????}{ORCID})
+  \item Davide Barberis \email{davide.barberis@unito.it}
 }
 
 }

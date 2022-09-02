@@ -3,7 +3,7 @@
 \docType{data}
 \name{cep.piem}
 \alias{cep.piem}
-\title{List of species from the Piedmont Region (Italy) that can be used in the mixture mixture/donor grassland composition}
+\title{Default training database}
 \format{
 A dataframe with 258 rows and 2 variables:
 \describe{
@@ -15,9 +15,9 @@ A dataframe with 258 rows and 2 variables:
 data(cep.piem)
 }
 \description{
-A dataframe with the 258 plant species and their name abbreviation
-suitable for modeling when the "data" argument of \code{\link[ResNatSeed]{trainingDB}} function
-is NULL,i.e. are related to Piedmont Region, Italy.
+A dataframe with the 258 plant species and their name abbreviation (CEP names) of the Piedmont Region (North Western Italy)
+suitable for modeling when the \code{data} argument of \code{\link[ResNatSeed]{trainingDB}} function
+is NULL.
 }
 \references{
 \itemize{

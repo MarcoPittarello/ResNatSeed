@@ -2,22 +2,23 @@
 % Please edit documentation in R/RestInd.R
 \name{RestInd}
 \alias{RestInd}
-\title{Computation of Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) for a mixture/donor grassland composition
-in a restoration site}
+\title{Computation of Suitability Index (SI) and Reliability Index (RI)}
 \usage{
 RestInd(trainingDB = NULL, composition, elevation, slope, aspect)
 }
 \arguments{
-\item{trainingDB}{default is NULL. When NULL the training dataset is derived from 4081
-vegetation surveys carried out in Piedmont Region, Italy. A customized training dataset can be generated with \code{\link[ResNatSeed]{trainingDB}}
-and then provided to "trainingDB" argument.}
+\item{trainingDB}{dataframe with the species eligible for the statistical modelling, selected on the basis of their
+frequency and abundance in the vegetation and topographical variables database. Each species is associated with the
+values of topographic variables (elevation, slope and aspect) and its abundance. Default is NULL. When NULL the training dataset is derived from 4081
+vegetation surveys carried out in Piedmont Region, (North-Western Italy). A customized training dataset can be generated
+with \code{\link[ResNatSeed]{trainingDB}} and then provided to "trainingDB" argument.}
 
-\item{composition}{dataframe with the mixture/donor grassland composition. The dataframe
+\item{composition}{dataframe with the seed mixture or donor grassland composition. It
 consists of two columns: 1) species code abbreviated in CEP names format and 2) abundance
 of the species. When "trainingDB" is NULL, the species CEP names are retrievable from
 \code{\link[ResNatSeed]{cep.piem}} data. When "trainingDB" is not NULL, i.e. the user does not use
 default settings, species CEP names are retrievable from \code{\link[ResNatSeed]{trainingDB}}, which
-generates CEP names of species suitable for modeling from a customized trainind dataset.}
+generates CEP names of species suitable for modeling from a customized training dataset.}
 
 \item{elevation}{Elevation of restoration site, expressed in meters above sea level (m a.s.l.)}
 
@@ -28,42 +29,44 @@ generates CEP names of species suitable for modeling from a customized trainind 
 \value{
 A list with three outputs:
 \itemize{
-\item \strong{DESCRIPTIVES}: dataframe with the descriptive information related to species used in the mixture/donor grassland composition:
+\item \strong{DESCRIPTIVES}: dataframe with the descriptive information related to modeled plant species:
 \describe{
 \item{\emph{cep.names}}{Species name in CEP format}
 \item{\emph{species}}{Full species name}
-\item{\emph{cases.number}}{Number of cases related to each species}
-\item{\emph{min.ele}}{Minimum elevation at which a species has been detected in the training dataset}
-\item{\emph{max.ele}}{Maximum elevation at which a species has been detected in the training dataset}
-\item{\emph{min.slope}}{Minimum slope at which a species has been detected in the training dataset}
-\item{\emph{max.slope}}{Maximum slope at which a species has been detected in the training dataset}
-\item{\emph{min.south}}{Minimum southness value at which a species has been detected in the training dataset}
-\item{\emph{max.south}}{Maximum southness value at which a species has been detected in the training dataset}
+\item{\emph{n.obs}}{Number of observations of each species selected for modeling}
+\item{\emph{min.ele}}{Minimum elevation at which a species occurred}
+\item{\emph{max.ele}}{Maximum elevation at which a species occurred}
+\item{\emph{min.slope}}{Minimum slope at which a species occurred}
+\item{\emph{max.slope}}{Maximum slope at which a species occurred}
+\item{\emph{min.south}}{Minimum southness value at which a species occurred}
+\item{\emph{max.south}}{Maximum southness value at which a species occurred}
 }
-\item \strong{SURVEYED AND PREDICTED ABUNDANCE}: dataframe with the following information:
+\item \strong{SPECIES ABUNDANCES}: dataframe with the following information:
 \describe{
 \item{\emph{cep.names}}{Species name in CEP format}
 \item{\emph{species}}{Full species name}
-\item{\emph{predicted.Abundance}}{Abundance of each species predicted by the best Generalized Additive Model (GAM) based on elevation, slope, and aspect of restoration site provided by the user}
-\item{\emph{predicted.AbundanceMax}}{Maximum abundance achievable by a species under the best possible ecological conditions, identified by all possible combinations of altitude, slope and southness. This maximum abundance is predicted by the best GAM and the limits of the three topographic variables are indicated in the output of the descriptives }
-\item{\emph{ratio}}{Ratio between the predicted abundance and the maximum abundance achievable. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
-\item{\emph{R2.adj}}{R square adjusted of the best GAM}
-\item{\emph{RMSE}}{Root Mean Square Error of the best GAM}
-\item{\emph{Mixture.abundance}}{Abundance of a species indicated in the mixture/donor grassland composition}
-\item{\emph{Expected.abundance}}{Expected abundance (the most achievable) of a species in a restoration site with the topographical features provided by the user}
+\item{\emph{PMA}}{Predicted Maximum Abundance. It is the maximum achievable abundance of a species in the restoration site, as predicted by the best model}
+\item{\emph{POA}}{Predicted Optimal Abundace. It is the maximum achievable abundance of a species in its optimal ecological condition, based on all possible combinations of elevation, slope and southness.}
+\item{\emph{ratio}}{Ratio between the \emph{PMA} and \emph{POA}. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
+\item{\emph{R2.adj}}{R square adjusted of the best Generalized Additive Model}
+\item{\emph{RMSE}}{Root Mean Squared Error of the best Generalized Additive Model}
+\item{\emph{SmDgA}}{Seed mixture or Donor grassland Abundance. Abundance of a species listed in the seed mixture or donor grassland composition imported by the user and eligible for modeling}
+\item{\emph{EA}}{Expected Abundance. The highest achievable abundance of a species in a restoration site, based on how far the species is from the ecological optimum (i.e. computed from the multiplication of SmDgA by the ratio)}
 }
 \item \strong{INDEXES}: \describe{
-\item{\emph{MSI}}{Mixture Suitability Index (MSI). The MSI ranges from 0 (bad) to 1 (optimal). This index ...}
-\item{\emph{MRI}}{Mixture Reliability Index (MRI). The MRI ranges from 0 (bad) to 1 (optimal). This index ...}
+\item{\emph{SI}}{Suitability Index (SI). Suitability of a seed mixture or donor grassland to restore a site with specific topographic characteristics. It ranges between 0 and 1. When SI=0 the restoration site is totally beyond the optimal ecological ranges of all species of the seed mixture or donor grassland, which is therefore not appropriate for the site restoration. Conversely, when SI=1 the restoration site has the optimal ecological conditions for all species of the seed mixture or donor grassland, which is therefore perfectly appropriate for the site restoration.}
+\item{\emph{RI}}{Reliability Index (RI). Index of the reliability of the Suitability Index (SI). The RI ranges between 0 and 1. When RI is close to 0 it means that few to none species contribute to the computation of the SI, whereas when RI is close to 1 the SI is computed with most to all species. Therefore, the higher is the RI, the most reliable is the SI. Not all the species of the seed mixture and donor grassland composition may modeled as i) they can be missing from the training database or ii) the values of the topographic factors of the restoration site are beyond their ecological ranges (e.g. if the elevation of the restoration site is 250 m and a species as an elevation range bounded between 1000 and 3000 m, such a species cannot be modeled).}
 }
 }
 }
 \description{
-The function allows to compute the Mixture Suitability Index (MSI) and Mixture Reliability Index (MRI) for a mixture/donor grassland composition
-in a restoration site based on the following topographic features: elevation, slope and aspect.
+The function allows to compute the Suitability Index (SI) and Reliability Index (RI) for a seed mixture or
+donor grassland composition to be used in a restoration site based on topographic features: elevation, slope and aspect.\cr
+
+see vignettes for additional details and examples
 }
 \examples{
-#creation of mixture composition dataframe by retrieving species CEP names from ResNatSeed::cep.piem
+#creation of seed mixture dataframe by retrieving species CEP names from ResNatSeed::cep.piem
 mixture_composition<-data.frame(species=c("Festrubr","Chaehirs","Phleprat","Onobmont"),
                                sc=c(5,40,20,20))
 #run function
