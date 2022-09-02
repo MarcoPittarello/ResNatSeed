@@ -1,9 +1,9 @@
-#' List of species from the Piedmont Region (Italy) that can be used in the seed mixture or donor grassland composition 
+#' Default training database
 #'
-#' A dataframe with the 258 plant species and their name abbreviation 
-#' suitable for modeling when the "data" argument of \code{\link[ResNatSeed]{trainingDB}} function 
-#' is NULL,i.e. are related to Piedmont Region, Italy.
-#'
+#' @description A dataframe with the 258 plant species and their name abbreviation (CEP names) of the Piedmont Region (North Western Italy)
+#' suitable for modeling when the \code{data} argument of \code{\link[ResNatSeed]{trainingDB}} function 
+#' is NULL.
+#' 
 #' 
 #' 
 #' @docType data
