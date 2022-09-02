@@ -45,11 +45,11 @@
 #' \item{*EA*}{Expected Abundance. The highest achievable abundance of a species in a restoration site, based on how far the species is from the ecological optimum (i.e. computed from the multiplication of SmDgA by the ratio)}  
 #' }
 #' - **INDEXES**: \describe{
-#' \item{*SI*}{Suitability Index (SI). The SI ranges from 0 (bad) to 1 (optimal). This index ...}
-#' \item{*RI*}{Reliability Index (RI). The RI ranges from 0 (bad) to 1 (optimal). This index ...} 
+#' \item{*SI*}{Suitability Index (SI). Suitability of a seed mixture or donor grassland to restore a site with specific topographic characteristics. It ranges between 0 and 1. When SI=0 the restoration site is totally beyond the optimal ecological ranges of all species of the seed mixture or donor grassland, which is therefore not appropriate for the site restoration. Conversely, when SI=1 the restoration site has the optimal ecological conditions for all species of the seed mixture or donor grassland, which is therefore perfectly appropriate for the site restoration.}
+#' \item{*RI*}{Reliability Index (RI). Index of the reliability of the Suitability Index (SI). The RI ranges between 0 and 1. When RI is close to 0 it means that few to none species contribute to the computation of the SI, whereas when RI is close to 1 the SI is computed with most to all species. Therefore, the higher is the RI, the most reliable is the SI. Not all the species of the seed mixture and donor grassland composition may modeled as i) they can be missing from the training database or ii) the values of the topographic factors of the restoration site are beyond their ecological ranges (e.g. if the elevation of the restoration site is 250 m and a species as an elevation range bounded between 1000 and 3000 m, such a species cannot be modeled).} 
 #' }
 #' @import vegan tidyverse mgcv performance dplyr
-#' @examples #creation of mixture composition dataframe by retrieving species CEP names from ResNatSeed::cep.piem
+#' @examples #creation of seed mixture dataframe by retrieving species CEP names from ResNatSeed::cep.piem
 #' mixture_composition<-data.frame(species=c("Festrubr","Chaehirs","Phleprat","Onobmont"),
 #'                                sc=c(5,40,20,20))
 #' #run function
