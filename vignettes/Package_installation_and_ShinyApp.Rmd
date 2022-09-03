@@ -1,5 +1,6 @@
 ---
 title: "Package installation and ShinyApp"
+author: "Marco Pittarello and Davide Barberis"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Package_installation_and_ShinyApp}
