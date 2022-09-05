@@ -1,7 +1,7 @@
 #' Customized ResNatSeed training database 
 #'
-#' @description This function creates a training database based on vegetation 
-#' data set by the user, which must be specified in the *trainingDB* argument of 
+#' @description This function creates a training database based on vegetation and topographical variables database provided
+#' by the user, which must be specified in the *trainingDB* argument of 
 #' the function \code{\link[ResNatSeed]{RestInd}}.\cr
 #' 
 #' see vignettes for additional details and examples

@@ -1,8 +1,8 @@
-#' Default training database
+#' List of plant species for the seed mixture or donor grassland composition with the default training database 
 #'
 #' @description A dataframe with the 258 plant species and their name abbreviation (CEP names) of the Piedmont Region (North Western Italy)
 #' suitable for modeling when the \code{data} argument of \code{\link[ResNatSeed]{trainingDB}} function 
-#' is NULL.
+#' is NULL. From this list is possible to create the mixture or donor grassland composition database. 
 #' 
 #' 
 #' 
