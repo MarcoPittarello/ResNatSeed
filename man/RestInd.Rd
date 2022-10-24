@@ -11,7 +11,7 @@ RestInd(trainingDB = NULL, composition, elevation, slope, aspect)
 frequency and abundance in the vegetation and topographical variables database. Each species is associated with the
 values of topographic variables (elevation, slope and aspect) and its abundance. Default is NULL. When NULL, the
 training database is derived from 4081 vegetation surveys carried out in Piedmont Region, (North-Western Italy), which it
-includes 258 plant species eligible for modeling. A customized training database can be generated
+includes 248 plant species eligible for modeling. A customized training database can be generated
 with \code{\link[ResNatSeed]{trainingDB}}.}
 
 \item{composition}{dataframe with the seed mixture or donor grassland composition. It
@@ -47,7 +47,7 @@ A list with three outputs:
 \item{\emph{cep.names}}{Species name in CEP format}
 \item{\emph{species}}{Full species name}
 \item{\emph{PMA}}{Predicted Maximum Abundance. It is the maximum achievable abundance of a species in the restoration site, as predicted by the best model}
-\item{\emph{POA}}{Predicted Optimal Abundace. It is the maximum achievable abundance of a species in its optimal ecological condition, based on all possible combinations of elevation, slope and southness.}
+\item{\emph{POA}}{Predicted Optimal Abundance. It is the maximum achievable abundance of a species in its optimal ecological condition, based on all possible combinations of elevation, slope and southness.}
 \item{\emph{ratio}}{Ratio between the \emph{PMA} and \emph{POA}. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
 \item{\emph{R2.adj}}{R square adjusted of the best Generalized Additive Model}
 \item{\emph{RMSE}}{Root Mean Squared Error of the best Generalized Additive Model}
