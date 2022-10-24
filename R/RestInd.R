@@ -38,7 +38,7 @@
 #' \item{*cep.names*}{Species name in CEP format}
 #' \item{*species*}{Full species name}
 #' \item{*PMA*}{Predicted Maximum Abundance. It is the maximum achievable abundance of a species in the restoration site, as predicted by the best model}
-#' \item{*POA*}{Predicted Optimal Abundace. It is the maximum achievable abundance of a species in its optimal ecological condition, based on all possible combinations of elevation, slope and southness.}
+#' \item{*POA*}{Predicted Optimal Abundance. It is the maximum achievable abundance of a species in its optimal ecological condition, based on all possible combinations of elevation, slope and southness.}
 #' \item{*ratio*}{Ratio between the *PMA* and *POA*. This ratio indicates how far (ratio = 0) or close (ratio = 1) a species is from its ecological optimum. }
 #' \item{*R2.adj*}{R square adjusted of the best Generalized Additive Model}
 #' \item{*RMSE*}{Root Mean Squared Error of the best Generalized Additive Model}
