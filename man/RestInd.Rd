@@ -9,16 +9,17 @@ RestInd(trainingDB = NULL, composition, elevation, slope, aspect)
 \arguments{
 \item{trainingDB}{dataframe with the species eligible for the statistical modelling, selected on the basis of their
 frequency and abundance in the vegetation and topographical variables database. Each species is associated with the
-values of topographic variables (elevation, slope and aspect) and its abundance. Default is NULL. When NULL the training dataset is derived from 4081
-vegetation surveys carried out in Piedmont Region, (North-Western Italy). A customized training dataset can be generated
-with \code{\link[ResNatSeed]{trainingDB}} and then provided to "trainingDB" argument.}
+values of topographic variables (elevation, slope and aspect) and its abundance. Default is NULL. When NULL, the
+training database is derived from 4081 vegetation surveys carried out in Piedmont Region, (North-Western Italy), which it
+includes 258 plant species eligible for modeling. A customized training database can be generated
+with \code{\link[ResNatSeed]{trainingDB}}.}
 
 \item{composition}{dataframe with the seed mixture or donor grassland composition. It
 consists of two columns: 1) species code abbreviated in CEP names format and 2) abundance
 of the species. When "trainingDB" is NULL, the species CEP names are retrievable from
 \code{\link[ResNatSeed]{cep.piem}} data. When "trainingDB" is not NULL, i.e. the user does not use
 default settings, species CEP names are retrievable from \code{\link[ResNatSeed]{trainingDB}}, which
-generates CEP names of species suitable for modeling from a customized training dataset.}
+generates CEP names of species suitable for modeling from a customized training database.}
 
 \item{elevation}{Elevation of restoration site, expressed in meters above sea level (m a.s.l.)}
 
