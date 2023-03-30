@@ -3,16 +3,44 @@
 
 # ResNatSeed
 
-The goal of ResNatSeed is to …
+**ResNatSeed** is an R package and Shiny web app to predict the
+REStoration potential of NATive SEEDs using topographic factors.
+
+The United Nations Decade on Ecosystem Restoration is highlighting the
+importance of restoring ecosystems and trying to overcome the actual
+limitations to the process.
+
+**ResNatSeed** born to overcome the problem of subjectivity during the
+assessment of suitability between native seeds and a site that must be
+restored.
+
+The package **allows to assess the restoration potential of native seeds
+in a restoration site using topographic factors only.** The input data
+are the composition of the seed mixture or the donor grassland and the
+**elevation, slope, and aspect** of the restoration site. Such
+topographic factors are easily retrievable both in the field and through
+any Geographic Information System (GIS) software.
+
+The suitability of the species mixture for restoring a site is based on
+the modeling of a large database of vegetation surveys, characterized by
+botanical composition associated to the abovementioned topographic
+factors. Such a database can be either a default one, which is related
+to the Piedmont Region (NW Italy), or provided by the user to allow the
+usage of ResNatSeed for any geographical area.
+
+**The restoration potential is expressed with two synthetic indexes**
+(named **Suitability Index and Reliability Index** ), readily
+interpretable as well as they range between 0 (low suitability and
+realiability) and 1 (high suitability and realiability).
 
 ## Installation
 
-You can install the development version of ResNatSeed from
-[GitHub](https://github.com/) with:
+You can install **ResNatSeed** from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("MarcoPittarello/ResNatSeed")
 ```
 
-Everything still up to date..work in progress
+A Shiny App version of ResNatSeed is also avaiable at the following web
+site: <https://marco-pittarello.shinyapps.io/ResNatSeed_ShinyApp/>
