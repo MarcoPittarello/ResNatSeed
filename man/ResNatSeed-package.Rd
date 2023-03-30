@@ -12,6 +12,7 @@ ResNatSeed is an R package that compute the suitability of a certain seed mixtur
 Useful links:
 \itemize{
   \item \url{https://github.com/MarcoPittarello/ResNatSeed}
+  \item \url{https://marcopittarello.github.io/ResNatSeed/}
 }
 
 }

@@ -14,12 +14,13 @@ Authors@R: c(
            comment = c(ORCID = ""))
            )
 Description: ResNatSeed is an R package that compute the suitability of a certain seed mixture with a site where the seeds would be sown for restoration purposes in a degraded site.
-URL: https://github.com/MarcoPittarello/ResNatSeed
+URL: https://github.com/MarcoPittarello/ResNatSeed,
+    https://marcopittarello.github.io/ResNatSeed/
 Imports: vegan,tidyverse,performance,mgcv,dplyr, tidyr
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 LazyData: true
 Suggests: 
     testthat (>= 3.0.0),
