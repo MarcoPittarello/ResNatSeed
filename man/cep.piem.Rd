@@ -5,7 +5,7 @@
 \alias{cep.piem}
 \title{List of plant species for the seed mixture or donor grassland composition with the default training database}
 \format{
-A dataframe with 258 rows and 2 variables:
+A dataframe with 248 rows and 2 variables:
 \describe{
 \item{species}{Species names according to Aeschimann et al 2004}
 \item{cep.names}{Abbreviation of species names according to the Cornell Ecology Programs (CEP), which uses eight-letter abbreviations for species. See \code{\link[vegan]{make.cepnames}} for more details}
@@ -15,7 +15,7 @@ A dataframe with 258 rows and 2 variables:
 data(cep.piem)
 }
 \description{
-A dataframe with the 258 plant species and their name abbreviation (CEP names) of the Piedmont Region (North Western Italy)
+A dataframe with the 248 plant species and their name abbreviation (CEP names) of the Piedmont Region (North Western Italy)
 suitable for modeling when the \code{data} argument of \code{\link[ResNatSeed]{trainingDB}} function
 is NULL. From this list is possible to create the mixture or donor grassland composition database.
 }
