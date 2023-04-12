@@ -1,0 +1,10 @@
+pandoc: 2.19.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  Introduction_to_ResNatSeed: Introduction_to_ResNatSeed.html
+  Package_installation_and_ShinyApp: Package_installation_and_ShinyApp.html
+  TUTORIAL_1_-_Default_training_database: TUTORIAL_1_-_Default_training_database.html
+  TUTORIAL_2_-_Customized_training_database: TUTORIAL_2_-_Customized_training_database.html
+last_built: 2023-04-12T13:17Z
+
