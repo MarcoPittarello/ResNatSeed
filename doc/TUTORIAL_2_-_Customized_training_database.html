@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Marco Pittarello and Davide Barberis" />
+
+
+<title>TUTORIAL 2 -Customized training database</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">TUTORIAL 2 -Customized training
+database</h1>
+<h4 class="author">Marco Pittarello and Davide Barberis</h4>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ResNatSeed)</span></code></pre></div>
+<p>If the study area is beyond the Piedmont Region (North-Western
+Italy), it is advisable to provide a customized <strong>training
+database</strong> (see “Introduction to ResNatSeed” vignette for
+definitions) through the <em><code>trainingDB</code></em> function
+before using the <em><code>RestInd</code></em> function.</p>
+<p>In order to be processed with the <em><code>trainingDB</code></em>
+function, the <strong>vegetation and topographical variables
+database</strong> (see “Introduction to ResNatSeed” vignette for
+definitions) must be structured as follows (see Table 1 for an
+example):</p>
+<ul>
+<li>Rows of the dataframe are the surveys</li>
+<li>The first column reports the survey codes</li>
+<li>The second, third and fourth columns report the topographical
+variables, respectively:
+<ul>
+<li><em>Elevation</em>: expressed in meters above sea level (m
+a.s.l.)</li>
+<li><em>Slope</em>: expressed in degrees (°)</li>
+<li><em>Aspect</em>: expressed in degrees from North (°N) as it will be
+converted to “<em>southness</em>” to avoid circular variable issues in
+the models run with <em><code>RestInd</code></em> <span class="citation">(Chang et al. 2004)</span></li>
+</ul></li>
+<li>From the fifth column onwards, the plant species names. Plant
+species names do not necessarily have to be coded, they can be left in
+full. Afterwards, abbreviation codes will be automatically created in
+CEP names format: an abbreviation of species names according to the
+Cornell Ecology Programs (CEP), which uses eight-letter abbreviations
+for species. The CEP names code will be used to formulate the seed
+mixture or donor grassland composition.</li>
+</ul>
+<p><strong>Table 1.</strong> Example of the structure of the
+<em>vegetation and topographical variables database</em> to provide in
+the function <em><code>trainingDB</code></em>. This database includes
+703 vegetation surveys and 532 plant species</p>
+<pre><code>#&gt; # A tibble: 532 × 703
+#&gt;    Cod_ril   elevation slope aspect `Nardus stricta` `Festuca rubra`
+#&gt;    &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+#&gt;  1 survey_01     1949. 23.9    244.             0               8.87
+#&gt;  2 survey_02     2589. 31.9    145.             5.17            0   
+#&gt;  3 survey_03     2634. 44.1    240.             0               0   
+#&gt;  4 survey_04     2593. 42.3    188.             0               0   
+#&gt;  5 survey_05     2195. 30.3    284.             0               2.59
+#&gt;  6 survey_06     2105.  8.99   185.             0              23.0 
+#&gt;  7 survey_07     2082. 31.0    235.             1.83            6.10
+#&gt;  8 survey_08     2078. 20.0    275.             0               8.33
+#&gt;  9 survey_09     1880.  5.24   170.             1.53           29.8 
+#&gt; 10 survey_10     2053. 40.6    176.             0               1.53
+#&gt; # … with 522 more rows, and 697 more variables: `Carex sempervirens` &lt;dbl&gt;,
+#&gt; #   `Festuca ovina aggr.` &lt;dbl&gt;, `Trifolium alpinum` &lt;dbl&gt;, `Poa alpina` &lt;dbl&gt;,
+#&gt; #   `Festuca paniculata` &lt;dbl&gt;, `Agrostis capillaris` &lt;dbl&gt;,
+#&gt; #   `Brachypodium rupestre` &lt;dbl&gt;, `Festuca violacea aggr.` &lt;dbl&gt;,
+#&gt; #   `Anthoxanthum odoratum aggr.` &lt;dbl&gt;, `Phleum rhaeticum` &lt;dbl&gt;,
+#&gt; #   `Plantago aggr. alpina/serpentina` &lt;dbl&gt;, `Helianthemum nummularium` &lt;dbl&gt;,
+#&gt; #   `Achillea millefolium aggr.` &lt;dbl&gt;, `Thymus serpyllum aggr.` &lt;dbl&gt;, …</code></pre>
+<p>At this point, the customized training database can be generated by
+specifying the name of the <em>vegetation and topographical variables
+database</em> in the <code>data</code> argument of the
+<em><code>trainingDB</code></em> function. Through this function it is
+possible to select the species eligible for the statistical modeling
+through two arguments:</p>
+<ul>
+<li><p><code>spe.freq</code>: this argument allows to set a threshold of
+minimum frequency of each species in the surveys. It is advisable to set
+values greater than or equal to 30 to allow appropriate statistical
+modeling.</p></li>
+<li><p><code>min.spe.abundance</code>: this argument allows to set a
+threshold of minimum abundance (greater than) of each species in each
+survey. When <code>NULL</code> the parameter is set to 0.</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>training.custom<span class="ot">&lt;-</span><span class="fu">trainingDB</span>(<span class="at">data=</span>veg.composition.example,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">spe.freq =</span> <span class="dv">30</span>,<span class="co"># only species occurring at least in 30 surveys will be retained</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">min.spe.abundance =</span> <span class="dv">1</span><span class="co"># only species with at least 1% of relative abundance will be retained</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;A list containing two dataframes has been created:&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1 - cep.names: database with the list of species suitable for modeling and their species codes (CEP names) to be used for the seed mixture or donor grassland composition&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2 - trainingDB.ResNatSeed: database to use in the &#39;RestInd&#39; function&quot;</span></span></code></pre></div>
+<p>Through <em><code>trainingDB</code></em> function, two dataframes are
+created and stored in a list, named in this example as
+‘training.custom’. The two dataframes are:</p>
+<ul>
+<li><code>cep.names</code>: dataframe with the list of species suitable
+for modeling and their species codes (CEP names) to be used for the seed
+mixture or donor grassland composition. In this example 65 species (out
+of 532) are eligible for modeling</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>training.custom<span class="sc">$</span>cep.names</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                             species  cep.names</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        Achillea millefolium aggr.   Achiaggr</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                   Agrostis alpina   Agroalpi</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3               Agrostis capillaris   Agrocapi</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         Alchemilla vulgaris aggr.   Alchaggr</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                Alopecurus alpinus   Alopalpi</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                 Antennaria dioica   Antedioi</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7       Anthoxanthum odoratum aggr.   Anthaggr</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8                    Arnica montana   Arnimont</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9                 Avenella flexuosa   Avenflex</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10            Brachypodium rupestre   Bracrupe</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11                      Briza media   Brizmedi</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12            Campanula scheuchzeri   Campsche</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13               Carduus defloratus   Carddefl</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14               Carex sempervirens   Caresemp</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15                  Carlina acaulis   Carlacau</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16               Centaurea uniflora   Centunif</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17                Cerastium arvense   Ceraarve</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18                Crocus albiflorus   Crocalbi</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19                  Cruciata glabra   Crucglab</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20               Dactylis glomerata   Dactglom</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21                Dianthus pavonius   Dianpavo</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22              Festuca ovina aggr.   Festaggr</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23           Festuca violacea aggr. Festaggr.1</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24               Festuca paniculata   Festpani</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25              Festuca quadriflora   Festquad</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26                    Festuca rubra   Festrubr</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27             Galium lucidum aggr.   Galiaggr</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28           Gentiana acaulis aggr.   Gentaggr</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29                    Geum montanum   Geummont</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30         Helianthemum nummularium   Helinumm</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31          Hieracium glanduliferum   Hierglan</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32              Hieracium pilosella   Hierpilo</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33                  Juncus trifidus   Junctrif</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34             Leontodon helveticus   Leonhelv</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35               Leontodon hispidus   Leonhisp</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36               Lotus corniculatus   Lotucorn</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37                     Luzula lutea   Luzulute</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38                   Nardus stricta   Nardstri</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39               Onobrychis montana   Onobmont</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40                 Phleum rhaeticum   Phlerhae</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41          Phyteuma betonicifolium   Phytbeto</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 42 Plantago aggr. alpina/serpentina   Planserp</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 43                       Poa alpina    Poaalpi</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44                    Poa pratensis    Poaprat</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45                    Poa variegata    Poavari</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46               Polygonum bistorta   Polybist</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47              Polygonum viviparum   Polyvivi</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 48              Potentilla crantzii   Potecran</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49           Potentilla grandiflora   Potegran</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 50                 Ranunculus acris   Ranuacri</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51        Ranunculus montanus aggr.   Ranuaggr</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 52              Ranunculus kuepferi   Ranukuep</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 53                   Salix herbacea   Saliherb</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54                Sesleria caerulea   Seslcaer</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 55       Taraxacum officinale aggr.   Taraaggr</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 56           Thymus serpyllum aggr.   Thymaggr</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 57                Trifolium alpinum   Trifalpi</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58               Trifolium pratense   Trifprat</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 59                 Trifolium repens   Trifrepe</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 60                 Trifolium thalii   Trifthal</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 61              Trisetum flavescens   Trisflav</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 62         Vaccinium gaultherioides   Vaccgaul</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 63              Vaccinium myrtillus   Vaccmyrt</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 64                Veronica allionii   Veroalli</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 65                  Viola calcarata   Violcalc</span></span></code></pre></div>
+<ul>
+<li><code>trainingDB.ResNatSeed</code>: training database to use in the
+<em><code>RestInd</code></em> function</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(training.custom<span class="sc">$</span>trainingDB.ResNatSeed)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Codril elevation    slope  southness                    species cep.names</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 survey_310  2093.494 39.45094 100.181328 Achillea millefolium aggr.  Achiaggr</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  survey_40  2446.180 33.13994   0.308533 Achillea millefolium aggr.  Achiaggr</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 survey_516  2042.679 29.37408 178.086090 Achillea millefolium aggr.  Achiaggr</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 survey_198  1630.240 22.73879 129.326096 Achillea millefolium aggr.  Achiaggr</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 survey_133  1945.885 12.64068 101.486450 Achillea millefolium aggr.  Achiaggr</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  survey_58  2435.455 26.73384 162.208801 Achillea millefolium aggr.  Achiaggr</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   abundance</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  0.000000</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  0.000000</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.000000</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  2.586207</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  8.982036</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  0.000000</span></span></code></pre></div>
+<p>From the list of species in <code>training.custom$cep.names</code>,
+it is necessary to create a database containing the seed mixture or
+donor grassland composition. The seed mixture or donor grassland
+composition must be a dataframe with two columns:</p>
+<ul>
+<li><em>First column</em>: species code abbreviated in CEP names
+format</li>
+<li><em>Second column</em>: abundance of each species. Abundance must be
+a number bounded between 0 and 100, which can be either a species
+relative abundance or a species cover (<em>sensu</em> <span class="citation">Pittarello et al. (2016)</span>; <span class="citation">Verdinelli et al. (2022)</span>].</li>
+</ul>
+<p>In this example, the donor grassland composition is characterized by
+four species:</p>
+<ul>
+<li><em>Dactylis glomerata</em> (CEP name: Dactglom), abundance:
+25%</li>
+<li><em>Festuca ovina</em> aggr. (CEP name: Festaggr), abundance:
+35%</li>
+<li><em>Thymus serpyllum</em> aggr. (CEP name: Thymaggr), abundance:
+15%</li>
+<li><em>Lotus corniculatus</em> (CEP name: Lotucorn), abundance: 8%</li>
+</ul>
+<p>Total abundances amount to 83%. The total abundance of the seed
+mixture or donor grassland composition should not necessarily amount
+100%.</p>
+<p>We can generate the dataframe of the donor grassland composition:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>donor.composition<span class="ot">&lt;-</span><span class="fu">data.frame</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">species=</span><span class="fu">c</span>(<span class="st">&quot;Dactglom&quot;</span>,<span class="st">&quot;Festaggr&quot;</span>,<span class="st">&quot;Thymaggr&quot;</span>,<span class="st">&quot;Lotucorn&quot;</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">abundance=</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">35</span>,<span class="dv">15</span>,<span class="dv">8</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>donor.composition</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    species abundance</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Dactglom        25</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Festaggr        35</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Thymaggr        15</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Lotucorn         8</span></span></code></pre></div>
+<p>It is now possible to use the <em><code>RestInd</code></em> function
+to calculate the <strong>Suitability Index (SI)</strong> and
+<strong>Reliability Index (RI)</strong> by means of the donor grassland
+composition (dataframe ‘donor.composition’) and of the elevation, slope,
+and aspect of restoration site:</p>
+<ul>
+<li>elevation: 1600 m a.s.l.</li>
+<li>slope: 10°</li>
+<li>aspect: 110° N</li>
+</ul>
+<p>Remember that in the <em><code>trainingDB</code></em> argument it
+must be specified the one created above,
+i.e. <code>training.custom$trainingDB.ResNatSeed</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">RestInd</span>(<span class="at">trainingDB =</span> training.custom<span class="sc">$</span>trainingDB.ResNatSeed, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">composition=</span>donor.composition,  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">elevation=</span><span class="dv">1600</span>, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">slope=</span><span class="dv">10</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">aspect=</span><span class="dv">110</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $DESCRIPTIVES</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          cep.names                species n.obs min.ele max.ele min.slope</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dactglom  Dactglom     Dactylis glomerata    31     760    2254       1.8</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Festaggr  Festaggr    Festuca ovina aggr.    39    1447    2756       1.5</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Lotucorn  Lotucorn     Lotus corniculatus    45    1010    2756       3.8</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Thymaggr  Thymaggr Thymus serpyllum aggr.    39     985    2756       5.9</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          max.slope min.south max.south</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dactglom        45        18       173</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Festaggr        47       6.9       173</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Lotucorn        45       1.9       179</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Thymaggr        45       6.9       179</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $SPECIES_ABUNDANCES</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   cep.names                species  PMA  POA ratio R2.adj RMSE SmDgA    EA</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  Dactglom     Dactylis glomerata 16.6 27.0  0.61   0.36  5.3    25 15.25</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  Festaggr    Festuca ovina aggr. 14.0 37.3  0.38   0.44  7.8    35 13.30</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  Lotucorn     Lotus corniculatus  2.8 22.9  0.12   0.61  3.2     8  0.96</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  Thymaggr Thymus serpyllum aggr.  5.7  8.5  0.67  -0.06  3.6    15 10.05</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $INDEXES</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     SI RI</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0.48  1</span></span></code></pre></div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-chang2004" class="csl-entry">
+Chang, Chi-Ru, Pei-Fen Lee, Mei-Ling Bai, and Tzer-Tong Lin. 2004.
+<span>“Predicting the Geographical Distribution of Plant Communities in
+Complex Terrain - a Case Study in Fushian Experimental Forest,
+Northeastern Taiwan.”</span> <em>Ecography</em> 27 (5): 577588. <a href="https://doi.org/10.1111/j.0906-7590.2004.03852.x">https://doi.org/10.1111/j.0906-7590.2004.03852.x</a>.
+</div>
+<div id="ref-pittarello2016" class="csl-entry">
+Pittarello, Marco, Massimiliano Probo, Michele Lonati, and Giampiero
+Lombardi. 2016. <span>“Restoration of Sub-Alpine Shrub-Encroached
+Grasslands Through Pastoral Practices: Effects on Vegetation Structure
+and Botanical Composition.”</span> Edited by Vigdis Vandvik. <em>Applied
+Vegetation Science</em> 19 (3): 381–90. <a href="https://doi.org/10.1111/avsc.12222">https://doi.org/10.1111/avsc.12222</a>.
+</div>
+<div id="ref-verdinelli2022" class="csl-entry">
+Verdinelli, Marcello, Marco Pittarello, Maria Carmela Caria, Giovanna
+Piga, Pier Paolo Roggero, Gian Marco Marrosu, Stefano Arrizza, et al.
+2022. <span>“Congruent Responses of Vascular Plant and Ant Communities
+to Pastoral Land-Use Abandonment in Mountain Areas Throughout Different
+Biogeographic Regions.”</span> <em>Ecological Processes</em> 11 (1): 35.
+<a href="https://doi.org/10.1186/s13717-022-00379-9">https://doi.org/10.1186/s13717-022-00379-9</a>.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
